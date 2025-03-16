@@ -1,3 +1,33 @@
 <resources>
-    <string name="app_name">CePowerPaymentBook</string>
+    <string name="app_name">CE Power Payment Book</string>
+    <string name="date_label">Date</string>
+    <string name="date_placeholder">Enter Date</string>
+    <string name="name_label">Name</string>
+    <string name="name_placeholder">Enter Name</string>
+    <string name="describe_label">Describe</string>
+    <string name="describe_placeholder">Enter Describe</string>
+    <string name="number_label">Number</string>
+    <string name="number_placeholder">Enter Number</string>
+    <string name="utility_label">Utility</string>
+    <string name="utility_placeholder">Select Utility</string>
+    <string name="zipCode_label">Zip Code</string>
+    <string name="zipCode_placeholder">Enter Zip Code</string>
+    <string name="city_label">City</string>
+    <string name="city_placeholder">Enter City</string>
+    <string name="address_label">Address</string>
+    <string name="address_placeholder">Enter Address</string>
+    <string name="houseNumber_label">House</string>
+    <string name="houseNumber_placeholder">Enter Number of Building</string>
+    <string name="houseBlock_label">Block</string>
+    <string name="houseBlock_placeholder">Enter Block of Bulding</string>
+    <string name="apartmentNumber_label">Apartment</string>
+    <string name="apartmentNumber_placeholder">Enter the Number of Apartment</string>
+    <string name="amount_label">Amount</string>
+    <string name="amount_placeholder">Enter the Amount</string>
+    <string name="email_label">Email Address</string>
+    <string name="email_placeholder">Input email</string>
+    <string name="phone_label">Phone number</string>
+    <string name="phone_placeholder">Input Phone number</string>
+    <string name="personal_account_label">Personal account</string>
+    <string name="personal_account_placeholder">Input Personal account number</string>
 </resources>

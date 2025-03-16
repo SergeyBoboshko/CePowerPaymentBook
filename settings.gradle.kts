@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CePowerPaymentBook"
+rootProject.name = "Compose Entity Sample"
 include(":app")
  
