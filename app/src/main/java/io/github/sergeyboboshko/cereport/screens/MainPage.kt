@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -35,6 +36,7 @@ import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationM
 import io.github.sergeyboboshko.composeentity.daemons.navigate
 import io.github.sergeyboboshko.composeentity.documents.base.DocumentsIconButton
 import io.github.sergeyboboshko.cereport.MyApplication1
+import io.github.sergeyboboshko.cereport.details.DetailsAddressEntityUI
 import io.github.sergeyboboshko.cereport.references.RefAddressesEntityUI
 import io.github.sergeyboboshko.cereport.references.RefUtilitiseEntityUI
 
@@ -51,5 +53,6 @@ fun MainPage (form:String){
     FlowRow {
         ClassicButtons.NavigationButton(SelfNav.getMainScreen(), RefAddressesEntityUI() as BaseUI,"Addresses Reference",null)
         ClassicButtons.NavigationButton(SelfNav.getMainScreen(), RefUtilitiseEntityUI() as BaseUI,"Utilities Reference","Services of Utilities")
+        ClassicButtons.IconNavigationButton(commonText = "Address Details", icon = Icons.Default.Menu, routePath = SelfNav.getMainScreen(),ui=DetailsAddressEntityUI() as BaseUI, subText = "")
     }
 }

@@ -11,6 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/../ComposeEntity/app" />
+            <option value="$PROJECT_DIR$/../ComposeEntity/composeentity_ksp" />
           </set>
         </option>
       </GradleProjectSettings>

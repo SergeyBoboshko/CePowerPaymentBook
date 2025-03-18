@@ -3,6 +3,7 @@ package io.github.sergeyboboshko.cereport.references
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.cereport.details.DetailsAddressEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
@@ -12,7 +13,8 @@ import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 import kotlinx.android.parcel.Parcelize
 
-@ObjectGeneratorCE(type = GeneratorType.Reference, label = "Addresses", generationLevel = GenerationLevel.UI)
+@ObjectGeneratorCE(type = GeneratorType.Reference, label = "Addresses", generationLevel = GenerationLevel.UI,
+    hasDetails = true, detailsEntityClass = DetailsAddressEntity::class)
 @Parcelize
 @Entity(tableName="ref_addresses")
 //@MigrationEntityCE(1)
