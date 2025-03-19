@@ -5,12 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.sergeyboboshko.cereport.details.DetailsAddressEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
+import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
 import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
+
 import kotlinx.android.parcel.Parcelize
 
 @ObjectGeneratorCE(type = GeneratorType.Reference, label = "Addresses", generationLevel = GenerationLevel.UI,
@@ -22,7 +23,9 @@ class RefAddressesEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var date: Long,
-    @FormFieldCE (label = "@@name_label", placeHolder = "@@name_placeholder",type= FieldTypeHelper.TEXT, positionOnForm = 1, useForOrder = true)
+    @FormFieldCE (label = "@@name_label", placeHolder = "@@name_placeholder",type= FieldTypeHelper.TEXT,
+        positionOnForm = 1, useForOrder = true
+    , onEndEditing = "AddressHelper.onNameChanged")
     override var name: String,
     override var isMarkedForDeletion: Boolean,
     @FormFieldCE (label = "@@zipCode_label", placeHolder = "@@zipCode_placeholder",type= FieldTypeHelper.TEXT, positionOnForm = 5, useForOrder = true, renderInList = false, renderInView = false)
@@ -40,5 +43,17 @@ class RefAddressesEntity(
 ): CommonReferenceEntity(id,date,name,isMarkedForDeletion), Parcelable {
     override fun toString(): String {
         return "$id: $name"
+    }
+}
+
+object AddressHelper{
+    fun onNameChanged(currentValue:Any,vm:_BaseFormVM,ui: RefAddressesEntityUI){
+        val address = vm._formData["address"]
+        if (address!=null) {
+            if (address.isBlank()) {
+                vm._formData["address"] = currentValue as String
+                vm.updateView()
+            }
+        }
     }
 }

@@ -63,16 +63,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-//    val ceVersion = "1.0.10"
-//    implementation("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
-//    ksp("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
-//    implementation("io.github.sergeyboboshko:composeentity:$ceVersion")
+    val ceVersion = "1.0.12"
+    implementation("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
+    ksp("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
+    implementation("io.github.sergeyboboshko:composeentity:$ceVersion")
 //    implementation (files("libs/composeentity_ksp.jar"))
 //    ksp(files("libs/composeentity_ksp.jar"))
 //    implementation(files("libs/composeentity-1.0.10-sources.jar"))
-    implementation (project(":composeentity_ksp"))
-    ksp(project(":composeentity_ksp"))
-    implementation(project(":composeentity_app"))
+//    implementation (project(":composeentity_ksp"))
+//    ksp(project(":composeentity_ksp"))
+//    implementation(project(":composeentity_app"))
 
     implementation("androidx.navigation:navigation-compose:2.8.3")
     val room_version = "2.6.1"

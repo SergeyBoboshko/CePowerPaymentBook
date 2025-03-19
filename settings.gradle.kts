@@ -23,9 +23,9 @@ rootProject.name = "Ce Power Payment Book"
 include(":app")
 //include("../ComposeEntity/app")
 //include("../ComposeEntity/composeentity_ksp")
-include(":composeentity_ksp")
-project(":composeentity_ksp").projectDir = file("../ComposeEntity/composeentity_ksp")
-include(":composeentity_app")
-project(":composeentity_app").projectDir = file("../ComposeEntity/app")
+//include(":composeentity_ksp")
+//project(":composeentity_ksp").projectDir = file("../ComposeEntity/composeentity_ksp")
+//include(":composeentity_app")
+//project(":composeentity_app").projectDir = file("../ComposeEntity/app")
 
  

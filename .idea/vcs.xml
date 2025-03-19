@@ -3,6 +3,5 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../ComposeEntity" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/../ComposeEntity/composeentity_ksp" vcs="Git" />
   </component>
 </project>
