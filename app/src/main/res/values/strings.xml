@@ -30,4 +30,9 @@
     <string name="phone_placeholder">Input Phone number</string>
     <string name="personal_account_label">Personal account</string>
     <string name="personal_account_placeholder">Input Personal account number</string>
+    <string name="zone_label">Zone</string>
+    <string name="zone_placeholder">Select zone</string>
+    <string name="meter_label">Meter</string>
+    <string name="meter_placeholder">Select meter</string>
+
 </resources>
