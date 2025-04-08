@@ -25,7 +25,7 @@ import kotlinx.android.parcel.Parcelize
             onDelete = ForeignKey.CASCADE
         )
     ])
-@MigrationEntityCE(migrationVersion = 1)
+//@MigrationEntityCE(migrationVersion = 1)
 class DetailsAddressEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,

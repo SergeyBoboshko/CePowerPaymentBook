@@ -13,7 +13,7 @@ import kotlinx.android.parcel.Parcelize
     , label = "The Types of Meters")
 @Parcelize
 @Entity(tableName="ref_typesofmeters")
-@MigrationEntityCE(1)
+//@MigrationEntityCE(1)
 data class RefTypesOfMeters (
     @PrimaryKey(autoGenerate = true)
     override var id: Long,

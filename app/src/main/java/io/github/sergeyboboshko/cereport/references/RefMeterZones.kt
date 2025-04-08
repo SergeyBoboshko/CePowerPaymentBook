@@ -15,7 +15,7 @@ import kotlinx.android.parcel.Parcelize
     , label = "The Meter Zones")
 @Parcelize
 @Entity(tableName="ref_meterzones")
-@MigrationEntityCE(1)
+//@MigrationEntityCE(1)
 data class RefMeterZones(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,

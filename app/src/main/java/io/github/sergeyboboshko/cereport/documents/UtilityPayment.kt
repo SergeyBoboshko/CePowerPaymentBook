@@ -3,11 +3,13 @@ package io.github.sergeyboboshko.cereport.documents
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.cereport.accumulationregisters.ARegPayments
 import io.github.sergeyboboshko.cereport.details.DetailsUtilityCharge
 import io.github.sergeyboboshko.cereport.details.DetailsUtilityPayment
 import io.github.sergeyboboshko.cereport.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
 import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
@@ -17,8 +19,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "doc_utility_payment")
 @ObjectGeneratorCE(type = GeneratorType.Document, label = "Document Utility Payment",
-    hasDetails = true, detailsEntityClass = DetailsUtilityPayment::class)
-@MigrationEntityCE(migrationVersion = 4)
+    hasDetails = true, detailsEntityClass = DetailsUtilityPayment::class,)
+@CeDocumentDescriber(accumulationRegistersIncome = [ARegPayments::class], documentType = DocTypes.DocUtilityPayment)
+//@MigrationEntityCE(migrationVersion = 4)
 data class DocUtilityPayment(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,

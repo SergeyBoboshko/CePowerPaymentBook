@@ -17,7 +17,7 @@ import kotlinx.android.parcel.Parcelize
 )
 @Parcelize
 @Entity(tableName="ref_meters")
-@MigrationEntityCE(1)
+//@MigrationEntityCE(1)
 data class RefMeters(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,

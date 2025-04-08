@@ -29,7 +29,7 @@ import kotlinx.android.parcel.Parcelize
 )
 @Parcelize
 @Entity(tableName = "ref_utilities")
-@MigrationEntityCE(1)
+//@MigrationEntityCE(1)
 class RefUtilitiseEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,

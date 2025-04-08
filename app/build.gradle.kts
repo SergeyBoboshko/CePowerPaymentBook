@@ -21,6 +21,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -63,7 +66,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    val ceVersion = "1.0.14"
+    val ceVersion = "1.0.19"
     implementation("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     ksp("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     implementation("io.github.sergeyboboshko:composeentity:$ceVersion")
@@ -85,6 +88,9 @@ dependencies {
 kapt {
     correctErrorTypes = true
     useBuildCache = true
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 // ksp set

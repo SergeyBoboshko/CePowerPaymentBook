@@ -34,5 +34,6 @@
     <string name="zone_placeholder">Select zone</string>
     <string name="meter_label">Meter</string>
     <string name="meter_placeholder">Select meter</string>
-
+    <string name="meter_reading_label">Meter Reading</string>
+    <string name="meter_reading_placeholder">Input meter reading</string>
 </resources>
