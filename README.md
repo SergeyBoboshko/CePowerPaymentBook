@@ -34,15 +34,28 @@ mv src/main/java/com/example/template src/main/java/com/your/package
 ### 4️⃣ Define Your Entities
 Create your entities, and **Compose Entity** will handle everything:
 ```kotlin
-@EntityCE
-data class Product(
-    @PrimaryKeyCE val id: Int,
-    val name: String,
-    @FormFieldCE(label = "Price", placeHolder="Input Price", type = FieldTypeHelper.DECIMAL)
-    val price: Double
-)
+@ObjectGeneratorCE(type = GeneratorType.Reference
+    , label = "The Meter Zones")
+@Parcelize
+@Entity(tableName="ref_meterzones")
+//@MigrationEntityCE(1)
+data class RefMeterZones(
+    @PrimaryKey(autoGenerate = true)
+    override var id: Long,
+    override var date: Long,
+    override var name: String,
+    override var isMarkedForDeletion: Boolean
+
+): CommonReferenceEntity(id,date,name,isMarkedForDeletion), Parcelable{
+    override fun toString(): String {
+        return "$id: $name"
+    }
+}
 ```
+And result of this code on pictures:
 ![CE_Example 1](https://github.com/user-attachments/assets/eb172b19-72ce-452e-8364-7761901f6f3e)
+![CE_Example 2](https://github.com/user-attachments/assets/dff0d617-fab7-409c-88e1-cd403f362900)
+
 
 ### 5️⃣ Run the Project 🚀
 Your UI and database are automatically generated, and you can start using the app immediately.
