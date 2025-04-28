@@ -1,6 +1,6 @@
 ﻿# 📦 Compose Entity Starter Template
 
-A minimal starter template for projects using **Compose Entity**. This template provides an initial setup for automatic UI generation and database handling with minimal configuration.
+Addings of minimal starter template for projects using **Compose Entity**. This template provides an initial setup for automatic UI generation and database handling with minimal configuration. Thisone sample has a line of objects presenting Utility Payment Tracking Book application.
 
 For detailed documentation, please visit the [Compose Entity KSP Manual](https://wool-fontina-39f.notion.site/Compose-Entity-KSP-1bbac9e714318004866fd9fd627a25e1).
 
