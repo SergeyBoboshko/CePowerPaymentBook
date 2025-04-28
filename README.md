@@ -53,6 +53,7 @@ data class RefMeterZones(
 }
 ```
 And result of this code on pictures:
+
 ![CE_Example 1](https://github.com/user-attachments/assets/eb172b19-72ce-452e-8364-7761901f6f3e)
 ![CE_Example 2](https://github.com/user-attachments/assets/dff0d617-fab7-409c-88e1-cd403f362900)
 
