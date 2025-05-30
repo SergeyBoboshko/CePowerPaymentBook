@@ -26,6 +26,6 @@ maven-repo/
 **/compose-entity-ksp/
 **/maven-repo/
 
-../ComposeEntity/
+#../ComposeEntity/
 
 
