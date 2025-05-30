@@ -13,3 +13,15 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Якщо ці папки десь були чи могли бути
+ComposeEntity/
+compose-entity/
+compose-entity-ksp/
+maven-repo/
+
+# На випадок, якщо вони потрапили глибше
+**/ComposeEntity/
+**/compose-entity/
+**/compose-entity-ksp/
+**/maven-repo/
