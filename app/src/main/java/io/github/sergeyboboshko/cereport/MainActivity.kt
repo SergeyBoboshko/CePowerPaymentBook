@@ -34,6 +34,10 @@ import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
 import io.github.sergeyboboshko.cereport.screens.MainPage
 import io.github.sergeyboboshko.cereport.screens.ScaffoldTopCommon
 import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
+import io.github.sergeyboboshko.composeentity.daemons.GlobalConfig
+import io.github.sergeyboboshko.composeentity.daemons.dbtransfer.DatabaseFunctions
+import io.github.sergeyboboshko.composeentity_ksp.base.Generated
+import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import kotlin.getValue
 
 
@@ -46,6 +50,7 @@ class MainActivity : ComponentActivity() {
         //GlobalContext.dropdownMenyStyle= DropdownMenuStyles.TILES
         enableEdgeToEdge()
         setContent {
+            GlobalConfig.showTransferDB = false
             //****************************************************
             //використати тільки в такій послідовності
             InitComposableEntityVariables()//має сенс тільки до GlobalContext.init(this)
@@ -85,7 +90,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             composable (route="settings"){
-                                SettingsScreen()
+                                SettingsScreen(Generated.databaseVersion, DependenciesProvider as DatabaseFunctions)
                             }
                         }
                     }

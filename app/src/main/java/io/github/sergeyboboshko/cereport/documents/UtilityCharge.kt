@@ -12,7 +12,6 @@ import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
 
 import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
 import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
 import kotlinx.parcelize.Parcelize
 

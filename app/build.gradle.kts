@@ -66,10 +66,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    val ceVersion = "1.0.19"
+    val ceVersion = "1.0.21"
     implementation("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     ksp("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     implementation("io.github.sergeyboboshko:composeentity:$ceVersion")
+
 //    implementation (files("libs/composeentity_ksp.jar"))
 //    ksp(files("libs/composeentity_ksp.jar"))
 //    implementation(files("libs/composeentity-1.0.10-sources.jar"))
