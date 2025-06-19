@@ -19,8 +19,10 @@ import io.github.sergeyboboshko.cereport.details.DetailsMeterEntityUI
 import io.github.sergeyboboshko.cereport.references.*
 import io.github.sergeyboboshko.cereport.R
 import io.github.sergeyboboshko.cereport.accumulationregisters.ARegPaymentsUI
+import io.github.sergeyboboshko.cereport.documents.DocSubsidyUI
 import io.github.sergeyboboshko.cereport.documents.DocUtilityChargeUI
 import io.github.sergeyboboshko.cereport.documents.DocUtilityPaymentUI
+import io.github.sergeyboboshko.composeentity.daemons.GlobalState
 import io.github.sergeyboboshko.composeentity.daemons.IconAligment
 
 
@@ -30,6 +32,7 @@ import java.util.Locale
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MainPage(form: String) {
+    GlobalState.hideAllBottomBarButtons()
     LazyColumn()
     {
         item {
@@ -54,13 +57,13 @@ fun MainPage(form: String) {
                 iconAligment = IconAligment.RIGHT
             )
 
-                ClassicButtons.IconNavigationButton(
+               /* ClassicButtons.IconNavigationButton(
                     commonText = "Address Details",
                     icon = ImageVector.vectorResource(id = R.drawable.roofing_24px),
                     routePath = SelfNav.getMainScreen(),
                     ui = DetailsAddressEntityUI() as BaseUI,
                     subText = ""
-                )
+                )*/
             }
         }
         item {
@@ -109,25 +112,36 @@ fun MainPage(form: String) {
         item { HorizontalDivider() }
 
         item {
-            ClassicButtons.IconAndTextNavigationButton(
-                routePath = SelfNav.getMainScreen(),
-                ui = DocUtilityChargeUI() as BaseUI,
-                commonText = "Utility Charge Document",
-                subText = "Invoices expence list",
-                icon = ImageVector.vectorResource(R.drawable.price_check_24px),
-                iconSize = 48.dp
-            )
-        }
-        item{
-            ClassicButtons.IconAndTextNavigationButton(
-                routePath = SelfNav.getMainScreen(),
-                ui = DocUtilityPaymentUI() as BaseUI,
-                commonText = "Utility Payment Document",
-                subText = "",
-                icon = ImageVector.vectorResource(R.drawable.payments_24px),
-                iconSize = 48.dp,
-                iconAligment = IconAligment.RIGHT
-            )
+            FlowRow {
+                ClassicButtons.IconAndTextNavigationButton(
+                    routePath = SelfNav.getMainScreen(),
+                    ui = DocUtilityChargeUI() as BaseUI,
+                    commonText = "Utility Charge Document",
+                    subText = "Invoices expence list",
+                    icon = ImageVector.vectorResource(R.drawable.price_check_24px),
+                    iconSize = 48.dp
+                )
+
+                ClassicButtons.IconAndTextNavigationButton(
+                    routePath = SelfNav.getMainScreen(),
+                    ui = DocUtilityPaymentUI() as BaseUI,
+                    commonText = "Utility Payment Document",
+                    subText = "",
+                    icon = ImageVector.vectorResource(R.drawable.payments_24px),
+                    iconSize = 48.dp,
+                    iconAligment = IconAligment.RIGHT
+                )
+
+                ClassicButtons.IconAndTextNavigationButton(
+                    routePath = SelfNav.getMainScreen(),
+                    ui = DocSubsidyUI() as BaseUI,
+                    commonText = "Subsidy Payment Document",
+                    subText = "",
+                    icon = ImageVector.vectorResource(R.drawable.payments_24px),
+                    iconSize = 48.dp,
+                    iconAligment = IconAligment.LEFT
+                )
+            }
         }
 
     }

@@ -41,7 +41,7 @@ import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import kotlin.getValue
 
 
-@DatabaseVersion(version = 8)
+@DatabaseVersion(version = 9)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,10 +52,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             GlobalConfig.showTransferDB = false
             //****************************************************
-            //використати тільки в такій послідовності
-            InitComposableEntityVariables()//має сенс тільки до GlobalContext.init(this)
+            //use only in this direct order
+            InitComposableEntityVariables()//has sence only before done next row "GlobalContext.init(this)"
             GlobalContext.init(this)
-            InitComposeEntityColors()//має сенс тільки після GlobalContext.init(this)
+            InitComposeEntityColors()//has sence only after done next row "GlobalContext.init(this)"
             //*****************************************************************
             var navController = rememberNavController()
             GlobalContext.mainViewModel?.navController = navController

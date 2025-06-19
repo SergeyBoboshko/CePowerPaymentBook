@@ -48,3 +48,8 @@ class SimpleMigrations7:AutoMigrationSpec{
 class SimpleMigrations8:AutoMigrationSpec{
 
 }
+
+@CeAutoMigration(from = 8, to = 9)
+class SimpleMigrations9:AutoMigrationSpec{
+
+}
