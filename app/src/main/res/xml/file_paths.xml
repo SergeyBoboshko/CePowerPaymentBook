@@ -3,4 +3,5 @@
     <external-files-path
         name="shared_db"
         path="." />
+    <cache-path name="cache" path="." />
 </paths>

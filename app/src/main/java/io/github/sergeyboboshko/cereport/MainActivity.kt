@@ -37,11 +37,12 @@ import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
 import io.github.sergeyboboshko.composeentity.daemons.GlobalConfig
 import io.github.sergeyboboshko.composeentity.daemons.dbtransfer.DatabaseFunctions
 import io.github.sergeyboboshko.composeentity_ksp.base.Generated
+import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
 import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import kotlin.getValue
 
 
-@DatabaseVersion(version = 9)
+@DatabaseVersion(version = 13)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {

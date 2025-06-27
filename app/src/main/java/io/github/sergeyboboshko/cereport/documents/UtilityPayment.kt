@@ -1,19 +1,36 @@
 package io.github.sergeyboboshko.cereport.documents
 
 import android.os.Parcelable
+import android.widget.Toast
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewModelScope
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import io.github.sergeyboboshko.cereport.MyApplication1
 import io.github.sergeyboboshko.cereport.accumulationregisters.ARegPayments
+import io.github.sergeyboboshko.cereport.alerts.CleanAndRefillDialodue
 import io.github.sergeyboboshko.cereport.details.DetailsUtilityCharge
 import io.github.sergeyboboshko.cereport.details.DetailsUtilityPayment
 import io.github.sergeyboboshko.cereport.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
+import io.github.sergeyboboshko.composeentity.daemons.FormType
+import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
+import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
 import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
 import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -38,3 +55,70 @@ data class DocUtilityPayment(
 ): CommonDocumentEntity(
     id,date, number, isPosted , isMarkedForDeletion
 ), Parcelable
+{
+    @Ignore
+    @FormFieldCE(
+        label = "-",
+        type = FieldTypeHelper.COMPOSABLE,
+        customComposable = "UtilityPaymentHelper.FillDetails",
+        renderInList = false,
+        renderInAddEdit = false
+    )
+    var fillDetails: String = ""
+}
+
+object UtilityPaymentHelper {
+    @Composable
+    fun FillDetails(vm: _BaseFormVM, formType: FormType? = null) {
+        var showDialogue by remember { mutableStateOf(false) }
+        val currentDoc = vm.anyItem as DocUtilityPaymentExt
+        var refresher by remember { mutableStateOf(true) }
+        LaunchedEffect(refresher) {
+            AppGlobalCE.detailsUtilityPaymentViewModel.refreshAll()
+            AppGlobalCE.detailsUtilityPaymentViewModel.refreshAllExt()
+        }
+        if (showDialogue) {
+            CleanAndRefillDialodue(
+                onConfirm = {
+                    //Toast.makeText(MyApplication1.appContext,"We Filling Details",Toast.LENGTH_SHORT).show()
+                    val sqlDelete = "DELETE FROM details_utility_payment WHERE parentId = ?"
+                    val sqlInsert = """
+                        INSERT INTO details_utility_payment (
+                                parentId, utilityId, meterId, amount, describe, meterR
+                            )
+                            SELECT ?, utilityId, meterId, 0.0, describe, 0.0
+                            FROM ref_adress_details
+                         WHERE parentId = ?
+                        """.trimIndent()
+
+                    AppGlobalCE.docUtilityPaymentViewModel.viewModelScope.launch {
+                        AppGlobalCE.docUtilityPaymentViewModel.repository.dao.performDelete(
+                            androidx.sqlite.db.SimpleSQLiteQuery(
+                                sqlDelete,
+                                arrayOf(currentDoc.link.id)
+                            )
+                        )
+                        AppGlobalCE.docUtilityPaymentViewModel.repository.dao.performDelete(
+                            androidx.sqlite.db.SimpleSQLiteQuery(
+                                sqlInsert,
+                                arrayOf(currentDoc.link.id, currentDoc.link.addressId)
+                            )
+                        )//
+                        refresher=!refresher
+                    }
+
+                    showDialogue = false
+
+                },
+                onDismiss = {
+                    Toast.makeText(MyApplication1.appContext, "DISMISS", Toast.LENGTH_SHORT).show()
+                    showDialogue = false
+                }
+            )
+        } else {
+            TextButton(onClick = { showDialogue = true }) {
+                Text("Fill Utilities By Address")
+            }
+        }
+    }
+}

@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import io.github.sergeyboboshko.composeentity.daemons.BaseUI
@@ -22,6 +23,7 @@ import io.github.sergeyboboshko.cereport.accumulationregisters.ARegPaymentsUI
 import io.github.sergeyboboshko.cereport.documents.DocSubsidyUI
 import io.github.sergeyboboshko.cereport.documents.DocUtilityChargeUI
 import io.github.sergeyboboshko.cereport.documents.DocUtilityPaymentUI
+import io.github.sergeyboboshko.cereport.reports.ReportUtilityPaymentsFreeEntityUI
 import io.github.sergeyboboshko.composeentity.daemons.GlobalState
 import io.github.sergeyboboshko.composeentity.daemons.IconAligment
 
@@ -142,6 +144,17 @@ fun MainPage(form: String) {
                     iconAligment = IconAligment.LEFT
                 )
             }
+        }
+
+        item { HorizontalDivider() }
+
+        item{
+            ClassicButtons.NavigationButton(
+                routePath = SelfNav.getMainScreen(),
+                ui = ReportUtilityPaymentsFreeEntityUI() as BaseUI,
+                caption = stringResource(R.string.payment_balance),
+                null
+            )
         }
 
     }

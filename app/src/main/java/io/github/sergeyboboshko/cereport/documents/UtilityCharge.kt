@@ -91,16 +91,7 @@ object UtilityChargeHelper {
         LaunchedEffect(refresher) {
             AppGlobalCE.detailsUtilityChargeViewModel.refreshAll()
             AppGlobalCE.detailsUtilityChargeViewModel.refreshAllExt()
-//            val st = "SELECT ?, utilityId, 0 FROM ref_adress_details WHERE parentId = ?"
-//            val args = arrayOf(currentDoc.link.id, currentDoc.link.addressId)
-//            AppGlobalCE.forSQLViewModel.fetchReportResult(st, args as Array<Any>)
        }
-       // val detailsList by AppGlobalCE.detailsUtilityChargeViewModel.flowList.collectAsState(
-       //     emptyList()
-       // )
-        //val addressList by AppGlobalCE.forSQLViewModel.queryResult.collectAsState()
-        //val countRows = addressList?.count
-
         if (showDialogue) {
             CleanAndRefillDialodue(
                 onConfirm = {
@@ -110,7 +101,7 @@ object UtilityChargeHelper {
                         INSERT INTO details_utility_charge (
                                 parentId, utilityId, meterId, amount, describe, meterR
                             )
-                            SELECT ?, utilityId, 0, 0.0, describe, 0.0
+                            SELECT ?, utilityId, meterId, 0.0, describe, 0.0
                             FROM ref_adress_details
                          WHERE parentId = ?
                         """.trimIndent()

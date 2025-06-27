@@ -53,3 +53,27 @@ class SimpleMigrations8:AutoMigrationSpec{
 class SimpleMigrations9:AutoMigrationSpec{
 
 }
+
+@CeAutoMigration(from = 9, to = 10)
+class SimpleMigrations10:AutoMigrationSpec{
+
+}
+
+@CeAutoMigration(from = 10, to = 11)
+class SimpleMigrations11:AutoMigrationSpec{
+
+}
+
+@CeAutoMigration(from = 11, to = 12)
+class SimpleMigrations12:AutoMigrationSpec{
+
+}
+@CeAutoMigration(from = 12, to = 13)
+class SimpleMigrations13:AutoMigrationSpec{
+
+}
+
+//@CeAutoMigration(from = 13, to = 14)
+//class SimpleMigrations14:AutoMigrationSpec{
+//
+//}
