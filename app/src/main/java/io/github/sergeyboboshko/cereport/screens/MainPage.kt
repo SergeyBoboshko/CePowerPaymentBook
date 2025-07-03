@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.HorizontalDivider
@@ -20,12 +21,15 @@ import io.github.sergeyboboshko.cereport.details.DetailsMeterEntityUI
 import io.github.sergeyboboshko.cereport.references.*
 import io.github.sergeyboboshko.cereport.R
 import io.github.sergeyboboshko.cereport.accumulationregisters.ARegPaymentsUI
+import io.github.sergeyboboshko.cereport.daemons.startInitializator
 import io.github.sergeyboboshko.cereport.documents.DocSubsidyUI
 import io.github.sergeyboboshko.cereport.documents.DocUtilityChargeUI
 import io.github.sergeyboboshko.cereport.documents.DocUtilityPaymentUI
 import io.github.sergeyboboshko.cereport.reports.ReportUtilityPaymentsFreeEntityUI
+import io.github.sergeyboboshko.composeentity.daemons.ButtonDisplayMode
 import io.github.sergeyboboshko.composeentity.daemons.GlobalState
 import io.github.sergeyboboshko.composeentity.daemons.IconAligment
+import io.github.sergeyboboshko.composeentity.daemons.StyledButton
 
 
 import java.util.Locale
@@ -143,6 +147,11 @@ fun MainPage(form: String) {
                     iconSize = 48.dp,
                     iconAligment = IconAligment.LEFT
                 )
+
+                StyledButton(icon = Icons.Default.Face, displayMode = ButtonDisplayMode.IconOnly, iconContentDescription = "INIT Fill",
+                    onClick = {
+                        startInitializator()
+                    })
             }
         }
 
