@@ -20,6 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import io.github.sergeyboboshko.cereport.daemons.InitialDataPrompt
 import io.github.sergeyboboshko.cereport.daemons.initialLocales
 import io.github.sergeyboboshko.composeentity.daemons.DropdownMenuStyles
 import io.github.sergeyboboshko.composeentity.daemons.GlobalColors
@@ -59,6 +60,8 @@ class MainActivity : ComponentActivity() {
             GlobalContext.init(this)
             InitComposeEntityColors()//has sence only after done next row "GlobalContext.init(this)"
             initialLocales()
+
+            InitialDataPrompt()
             //*****************************************************************
             var navController = rememberNavController()
             GlobalContext.mainViewModel?.navController = navController
