@@ -43,7 +43,7 @@ import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
         LEFT JOIN ref_utilities WHERE areg_payments.utilityId = ref_utilities.id 
         GROUP BY 
         addressId,
-        utilityId ) as tab
+        utilityId ) as tab WHERE true 
     """,
     groups = """ 
         addressId,

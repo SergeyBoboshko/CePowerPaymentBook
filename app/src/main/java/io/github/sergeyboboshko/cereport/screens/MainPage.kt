@@ -27,6 +27,7 @@ import io.github.sergeyboboshko.cereport.documents.DocUtilityChargeUI
 import io.github.sergeyboboshko.cereport.documents.DocUtilityPaymentUI
 import io.github.sergeyboboshko.cereport.reports.ReportUtilityPaymentsFreeEntityUI
 import io.github.sergeyboboshko.composeentity.daemons.ButtonDisplayMode
+import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.GlobalState
 import io.github.sergeyboboshko.composeentity.daemons.IconAligment
 import io.github.sergeyboboshko.composeentity.daemons.StyledButton
@@ -163,7 +164,8 @@ fun MainPage(form: String) {
                 )
                 StyledButton(icon = Icons.Default.Face, displayMode = ButtonDisplayMode.IconOnly, iconContentDescription = "INIT Fill",
                     onClick = {
-                        startInitializator()
+                        //startInitializator()
+                        GlobalContext.mainViewModel?.navController?.navigate("init_db")
                     })
             }
         }

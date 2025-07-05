@@ -34,6 +34,7 @@ import io.github.sergeyboboshko.composeentity.daemons.SettingsScreen
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
 import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
 import io.github.sergeyboboshko.cereport.screens.MainPage
+import io.github.sergeyboboshko.cereport.screens.OtherNavigation
 import io.github.sergeyboboshko.cereport.screens.ScaffoldTopCommon
 import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
 import io.github.sergeyboboshko.composeentity.daemons.GlobalConfig
@@ -98,6 +99,8 @@ class MainActivity : ComponentActivity() {
                             composable (route="settings"){
                                 SettingsScreen(Generated.databaseVersion, DependenciesProvider as DatabaseFunctions)
                             }
+
+                            OtherNavigation()
                         }
                     }
                 }

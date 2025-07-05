@@ -140,6 +140,7 @@ fun startInitializator() {
 
         withContext(Dispatchers.Main) {
             Toast.makeText(GlobalContext.context, "Done!", Toast.LENGTH_SHORT).show()
+            GlobalContext.mainViewModel?.navigateToHome()
         }
     }
 }
@@ -171,7 +172,11 @@ fun InitialDataPrompt(
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDialog = false }) {
+                TextButton(onClick = {
+                    InitialDataState.markAsFilled(context)
+                    showDialog = false
+                    GlobalContext.mainViewModel?.navigateToHome()
+                }) {
                     Text("No")
                 }
             }
@@ -192,6 +197,11 @@ object InitialDataState {
     fun markAsFilled(context: Context) {
         context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
             .edit().putBoolean(KEY_FILLED, true).apply()
+    }
+
+    fun markAsUnFilled(context: Context) {
+        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+            .edit().putBoolean(KEY_FILLED, false).apply()
     }
 }
 
