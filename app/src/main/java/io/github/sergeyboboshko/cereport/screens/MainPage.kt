@@ -148,22 +148,24 @@ fun MainPage(form: String) {
                     iconAligment = IconAligment.LEFT
                 )
 
-                StyledButton(icon = Icons.Default.Face, displayMode = ButtonDisplayMode.IconOnly, iconContentDescription = "INIT Fill",
-                    onClick = {
-                        startInitializator()
-                    })
             }
         }
 
         item { HorizontalDivider() }
 
         item{
-            ClassicButtons.NavigationButton(
-                routePath = SelfNav.getMainScreen(),
-                ui = ReportUtilityPaymentsFreeEntityUI() as BaseUI,
-                caption = stringResource(R.string.payment_balance),
-                null
-            )
+            FlowRow {
+                ClassicButtons.NavigationButton(
+                    routePath = SelfNav.getMainScreen(),
+                    ui = ReportUtilityPaymentsFreeEntityUI() as BaseUI,
+                    caption = stringResource(R.string.payment_balance),
+                    null
+                )
+                StyledButton(icon = Icons.Default.Face, displayMode = ButtonDisplayMode.IconOnly, iconContentDescription = "INIT Fill",
+                    onClick = {
+                        startInitializator()
+                    })
+            }
         }
 
     }
