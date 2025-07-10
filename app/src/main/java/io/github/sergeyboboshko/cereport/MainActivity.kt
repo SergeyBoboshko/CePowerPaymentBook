@@ -45,7 +45,7 @@ import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import kotlin.getValue
 
 
-@DatabaseVersion(version = 13)
+@DatabaseVersion(version = 14)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {

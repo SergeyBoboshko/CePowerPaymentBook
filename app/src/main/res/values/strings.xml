@@ -39,4 +39,6 @@
     <string name="payment_balance">Payment Balance Report</string>
     <string name="open_pdf">Open PDF</string>
     <string name="show_in_here">Show here</string>
+    <string name="period">Period</string>
+    <string name="period_label">Input Period</string>
 </resources>

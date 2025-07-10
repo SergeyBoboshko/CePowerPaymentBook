@@ -73,7 +73,7 @@ class SimpleMigrations13:AutoMigrationSpec{
 
 }
 
-//@CeAutoMigration(from = 13, to = 14)
-//class SimpleMigrations14:AutoMigrationSpec{
-//
-//}
+@CeAutoMigration(from = 13, to = 14)
+class SimpleMigrations14:AutoMigrationSpec{
+
+}

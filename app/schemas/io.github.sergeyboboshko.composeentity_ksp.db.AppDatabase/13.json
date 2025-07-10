@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 13,
-    "identityHash": "69d8eb51b2a3ec67d26b7a397b421854",
+    "identityHash": "4862d14441c43d6e5ab286440d0c2577",
     "entities": [
       {
         "tableName": "areg_payments",
@@ -836,7 +836,7 @@
       },
       {
         "tableName": "rep_utilitypayments_free_settings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `describe` TEXT NOT NULL, `addressId` INTEGER NOT NULL, `amount` REAL NOT NULL, `groups` TEXT NOT NULL, `resources` TEXT NOT NULL, `conditions` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `period` TEXT NOT NULL, `describe` TEXT NOT NULL, `addressId` INTEGER NOT NULL, `amount` REAL NOT NULL, `conditions` TEXT NOT NULL, `groups` TEXT NOT NULL, `resources` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -869,6 +869,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "conditions",
+            "columnName": "conditions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "groups",
             "columnName": "groups",
             "affinity": "TEXT",
@@ -877,12 +883,6 @@
           {
             "fieldPath": "resources",
             "columnName": "resources",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "conditions",
-            "columnName": "conditions",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -900,7 +900,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '69d8eb51b2a3ec67d26b7a397b421854')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4862d14441c43d6e5ab286440d0c2577')"
     ]
   }
 }
