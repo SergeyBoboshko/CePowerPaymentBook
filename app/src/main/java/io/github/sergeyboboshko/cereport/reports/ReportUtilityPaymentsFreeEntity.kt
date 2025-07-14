@@ -55,7 +55,7 @@ data class ReportUtilityPaymentsFreeEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
     override var name:String,
     @ColumnInfo(defaultValue = "0")
-    @FormFieldCE(type = FieldTypeHelper.DATE,label="@@period", placeHolder = "@@period_label", onEndEditing = "onPeriodEndEditing", wrapInFilter = true)
+    @FormFieldCE(type = FieldTypeHelper.DATE,label="@@period", placeHolder = "@@period_label", onChange = "onPeriodEndEditing", wrapInFilter = true)
     var period:Long,
     @FormFieldCE(type = FieldTypeHelper.TEXT,label="@@describe_label", placeHolder = "@@describe_placeholder")
     override var describe:String,
@@ -70,6 +70,8 @@ data class ReportUtilityPaymentsFreeEntity(
 ): ReportEntity(id,"addressId","amount",name,describe)
 
 fun onPeriodEndEditing (currentValue: Any, vm: _BaseFormVM, ui: ReportUtilityPaymentsFreeEntityUI){
+    //{{{norew
     val endOfDay = getEndOfDay(currentValue as Long)
     vm.updateField("period",endOfDay.toString())
+    //}}}
 }
