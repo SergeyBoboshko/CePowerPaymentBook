@@ -7,11 +7,11 @@ import io.github.sergeyboboshko.composeentity.daemons.BaseEntity
 import io.github.sergeyboboshko.composeentity.daemons.IconVector
 import io.github.sergeyboboshko.composeentity_ksp.base.CeFree
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 
 @CeFree ()
-@ObjectGeneratorCE(type = GeneratorType.Free, generationLevel = GenerationLevel.VIEW_MODEL)
+@CeGenerator(type = GeneratorType.Free, generationLevel = GenerationLevel.VIEW_MODEL)
 data class ForSQL(
     override var id: Long
 ):BaseEntity {

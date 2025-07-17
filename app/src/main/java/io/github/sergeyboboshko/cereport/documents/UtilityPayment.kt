@@ -26,19 +26,19 @@ import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "doc_utility_payment")
-@ObjectGeneratorCE(type = GeneratorType.Document, label = "Document Utility Payment",
+@CeGenerator(type = GeneratorType.Document, label = "Document Utility Payment",
     hasDetails = true, detailsEntityClass = DetailsUtilityPayment::class,)
 @CeDocumentDescriber(accumulationRegistersIncome = [ARegPayments::class], documentType = DocTypes.DocUtilityPayment)
-//@MigrationEntityCE(migrationVersion = 4)
+//@CeMigrationEntity(migrationVersion = 4)
 data class DocUtilityPayment(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
@@ -47,17 +47,17 @@ data class DocUtilityPayment(
     override var isPosted: Boolean,
     override var isMarkedForDeletion: Boolean,
     //Address, Describe
-    @FormFieldCE(related = true, type = FieldTypeHelper.SELECT, relatedEntityClass = RefAddressesEntity::class,
+    @CeField(related = true, type = FieldTypeHelper.SELECT, relatedEntityClass = RefAddressesEntity::class,
         label = "@@address_label", placeHolder = "@@address_placeholder")
     var addressId:Long,
-    @FormFieldCE(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT)
+    @CeField(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT)
     var describe:String
 ): CommonDocumentEntity(
     id,date, number, isPosted , isMarkedForDeletion
 ), Parcelable
 {
     @Ignore
-    @FormFieldCE(
+    @CeField(
         label = "-",
         type = FieldTypeHelper.COMPOSABLE,
         customComposable = "UtilityPaymentHelper.FillDetails",

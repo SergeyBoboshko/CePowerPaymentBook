@@ -16,13 +16,13 @@ import io.github.sergeyboboshko.cereport.references.RefMeters
 import io.github.sergeyboboshko.cereport.references.RefUtilitiseEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import kotlinx.android.parcel.Parcelize
 
-@ObjectGeneratorCE(type = GeneratorType.Details, label = "The Details Subsidy")
+@CeGenerator(type = GeneratorType.Details, label = "The Details Subsidy")
 @Parcelize
 @Entity(
     tableName = "details_subsidy",
@@ -40,7 +40,7 @@ class DetailsSubsidy(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var parentId: Long,
-    @FormFieldCE(
+    @CeField(
         related = true,
         relatedEntityClass = RefUtilitiseEntity::class,
         extName = "utility",
@@ -51,7 +51,7 @@ class DetailsSubsidy(
         useForOrder = true
     )
     var utilityId: Long,
-    @FormFieldCE(
+    @CeField(
         related = true,
         relatedEntityClass = RefMeters::class,
         extName = "meter",
@@ -62,20 +62,20 @@ class DetailsSubsidy(
         useForOrder = true
     )
     var meterId: Long,
-    @FormFieldCE(
+    @CeField(
         label = "@@amount_label",
         placeHolder = "@@amount_placeholder",
         type = FieldTypeHelper.DECIMAL
     )
     var amount: Double,
-    @FormFieldCE(
+    @CeField(
         label = "@@describe_label",
         placeHolder = "@@describe_placeholder",
         type = FieldTypeHelper.TEXT
     )
     var describe: String,
 
-    @FormFieldCE(
+    @CeField(
         label = "@@meter_reading_label",
         placeHolder = "@@meter_reading_placeholder",
         type = FieldTypeHelper.DECIMAL

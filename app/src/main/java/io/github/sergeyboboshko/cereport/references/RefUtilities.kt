@@ -15,13 +15,13 @@ import io.github.sergeyboboshko.composeentity.daemons.SimpleDataPickerDialog
 import io.github.sergeyboboshko.composeentity.daemons.WebPageViewer
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import kotlinx.android.parcel.Parcelize
 
-@ObjectGeneratorCE(
+@CeGenerator(
     type = GeneratorType.Reference,
     label = "The Utilities",
     beforeSave = "RefUtilitiesHelper.beforeSave",
@@ -29,12 +29,12 @@ import kotlinx.android.parcel.Parcelize
 )
 @Parcelize
 @Entity(tableName = "ref_utilities")
-//@MigrationEntityCE(1)
+//@CeMigrationEntity(1)
 class RefUtilitiseEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var date: Long,
-    @FormFieldCE(
+    @CeField(
         label = "@@name_label",
         placeHolder = "@@name_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -43,7 +43,7 @@ class RefUtilitiseEntity(
     )
     override var name: String,
     override var isMarkedForDeletion: Boolean,
-    @FormFieldCE(
+    @CeField(
         label = "@@address_label",
         placeHolder = "@@address_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -51,7 +51,7 @@ class RefUtilitiseEntity(
         useForOrder = true
     )
     var physicalAddress: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@email_label",
         placeHolder = "@@email_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -59,7 +59,7 @@ class RefUtilitiseEntity(
         useForOrder = true
     )
     var emailAddress: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@phone_label",
         placeHolder = "@@phone_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -67,7 +67,7 @@ class RefUtilitiseEntity(
         useForOrder = true
     )
     var phoneNumber: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@personal_account_label",
         placeHolder = "@@personal_account_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -75,7 +75,7 @@ class RefUtilitiseEntity(
         useForOrder = true
     )
     var p_account: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@describe_label",
         placeHolder = "@@describe_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -88,7 +88,7 @@ class RefUtilitiseEntity(
     }
 
     @Ignore
-    @FormFieldCE(
+    @CeField(
         label = "Web Page",
         type = FieldTypeHelper.COMPOSABLE,
         customComposable = "RefUtilitiesHelper.ShowWebPage",

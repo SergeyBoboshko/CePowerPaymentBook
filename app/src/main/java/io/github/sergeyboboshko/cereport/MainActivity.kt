@@ -14,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -32,20 +33,22 @@ import io.github.sergeyboboshko.composeentity.daemons.MainViewModel
 import io.github.sergeyboboshko.composeentity.daemons.SelfNavigation
 import io.github.sergeyboboshko.composeentity.daemons.SettingsScreen
 import io.github.sergeyboboshko.composeentity.daemons.screens.BottomCommonBar
-import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseVersion
+import io.github.sergeyboboshko.composeentity_ksp.base.CeDatabaseVersion
 import io.github.sergeyboboshko.cereport.screens.MainPage
 import io.github.sergeyboboshko.cereport.screens.OtherNavigation
 import io.github.sergeyboboshko.cereport.screens.ScaffoldTopCommon
+import io.github.sergeyboboshko.cereport.screens.TopScreenSettings
+import io.github.sergeyboboshko.cereport.screens.initialCustomColorPalette
 import io.github.sergeyboboshko.cereport.ui.theme.ComposeEntitySampleTheme
 import io.github.sergeyboboshko.composeentity.daemons.GlobalConfig
 import io.github.sergeyboboshko.composeentity.daemons.dbtransfer.DatabaseFunctions
 import io.github.sergeyboboshko.composeentity_ksp.base.Generated
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
 import io.github.sergeyboboshko.composeentity_ksp.db.DependenciesProvider
 import kotlin.getValue
 
 
-@DatabaseVersion(version = 14)
+@CeDatabaseVersion(version = 14)
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +64,7 @@ class MainActivity : ComponentActivity() {
             GlobalContext.init(this)
             InitComposeEntityColors()//has sence only after done next row "GlobalContext.init(this)"
             initialLocales()
-
+            initialCustomColorPalette(LocalContext.current)
             InitialDataPrompt()
             //*****************************************************************
             var navController = rememberNavController()
@@ -94,10 +97,6 @@ class MainActivity : ComponentActivity() {
                                 val form =
                                     navController.currentBackStackEntry?.arguments?.getString("form")
                                 SelfNavigation(form ?: "")
-                            }
-
-                            composable (route="settings"){
-                                SettingsScreen(Generated.databaseVersion, DependenciesProvider as DatabaseFunctions)
                             }
 
                             OtherNavigation()

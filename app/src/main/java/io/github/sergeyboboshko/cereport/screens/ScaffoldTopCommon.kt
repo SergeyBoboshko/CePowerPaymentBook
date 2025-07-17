@@ -139,7 +139,7 @@ fun ScaffoldTopCommon() {
 //            }
             IconButton(onClick = {
                 if (!GlobalContext.isModified) {
-                    navController?.navigate("settings")
+                    navController?.navigate("locate_settings")
                 } else {
                     showEscapeDialog = true
                 }

@@ -12,33 +12,33 @@ import io.github.sergeyboboshko.composeentity.daemons.SaveOperationTypes
 import io.github.sergeyboboshko.composeentity.daemons.SimpleDataPickerDialog
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 
 import kotlinx.android.parcel.Parcelize
 
-@ObjectGeneratorCE(
+@CeGenerator(
     type = GeneratorType.Reference, label = "Addresses", generationLevel = GenerationLevel.UI,
     hasDetails = true, detailsEntityClass = DetailsAddressEntity::class
 )
 @Parcelize
 @Entity(tableName = "ref_addresses")
-//@MigrationEntityCE(1)
+//@CeMigrationEntity(1)
 class RefAddressesEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var date: Long,
-    @FormFieldCE(
+    @CeField(
         label = "@@name_label", placeHolder = "@@name_placeholder", type = FieldTypeHelper.TEXT,
         positionOnForm = 1, useForOrder = true, onEndEditing = "AddressHelper.onNameChanged"
         , condition = "AddressHelper.nameValidator"
     )
     override var name: String,
     override var isMarkedForDeletion: Boolean,
-    @FormFieldCE(
+    @CeField(
         label = "@@zipCode_label",
         placeHolder = "@@zipCode_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -49,7 +49,7 @@ class RefAddressesEntity(
         condition = "AddressHelper.zipValidator"
     )
     var zipCode: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@city_label",
         placeHolder = "@@city_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -57,7 +57,7 @@ class RefAddressesEntity(
         useForOrder = true
     )
     var city: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@address_label",
         placeHolder = "@@address_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -65,7 +65,7 @@ class RefAddressesEntity(
         useForOrder = true
     )
     var address: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@houseNumber_label",
         placeHolder = "@@houseNumber_placeholder",
         type = FieldTypeHelper.NUMBER,
@@ -74,7 +74,7 @@ class RefAddressesEntity(
         renderInList = false
     )
     var house: Int,
-    @FormFieldCE(
+    @CeField(
         label = "@@houseBlock_label",
         placeHolder = "@@houseBlock_placeholder",
         type = FieldTypeHelper.TEXT,
@@ -82,7 +82,7 @@ class RefAddressesEntity(
         renderInList = false
     )
     var houseBlock: String,
-    @FormFieldCE(
+    @CeField(
         label = "@@apartmentNumber_label",
         placeHolder = "@@apartmentNumber_placeholder",
         type = FieldTypeHelper.NUMBER,

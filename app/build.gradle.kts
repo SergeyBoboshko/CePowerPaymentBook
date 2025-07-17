@@ -7,6 +7,8 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp") version "2.0.0-1.0.24"
+
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -65,8 +67,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
-    val ceVersion = "1.0.25"
+    val ceVersion = "1.0.27"
     implementation("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     ksp("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     implementation("io.github.sergeyboboshko:composeentity:$ceVersion")

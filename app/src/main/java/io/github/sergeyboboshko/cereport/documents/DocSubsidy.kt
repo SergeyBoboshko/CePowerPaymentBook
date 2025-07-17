@@ -30,20 +30,20 @@ import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntit
 import io.github.sergeyboboshko.composeentity.documents.base.DocUI
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "doc_subsidy")
-@ObjectGeneratorCE(
+@CeGenerator(
     type = GeneratorType.Document, label = "Document Subsidy Payments",
     hasDetails = true, detailsEntityClass = DetailsSubsidy::class
 )
-@MigrationEntityCE(migrationVersion = 9)
+@CeMigrationEntity(migrationVersion = 9)
 @CeDocumentDescriber(
     accumulationRegistersIncome = [ARegPayments::class],
     documentType = DocTypes.DocSubsidy
@@ -56,7 +56,7 @@ data class DocSubsidy(
     override var isPosted: Boolean,
     override var isMarkedForDeletion: Boolean,
     //Address, Describe
-    @FormFieldCE(
+    @CeField(
         related = true,
         type = FieldTypeHelper.SELECT,
         relatedEntityClass = RefAddressesEntity::class,
@@ -64,13 +64,13 @@ data class DocSubsidy(
         placeHolder = "@@address_placeholder"
     )
     var addressId: Long,
-    @FormFieldCE(
+    @CeField(
         label = "@@describe_label",
         placeHolder = "@@describe_placeholder",
         type = FieldTypeHelper.TEXT
     )
     var describe: String,
-    @FormFieldCE(
+    @CeField(
         label = "URL",
         placeHolder = "Input URL",
         type = FieldTypeHelper.TEXT
@@ -81,7 +81,7 @@ data class DocSubsidy(
     id, date, number, isPosted, isMarkedForDeletion
 ), Parcelable {
     @Ignore
-    @FormFieldCE(
+    @CeField(
         label = "-",
         type = FieldTypeHelper.COMPOSABLE,
         customComposable = "UtilitySubsidyHelper.FillDetails",

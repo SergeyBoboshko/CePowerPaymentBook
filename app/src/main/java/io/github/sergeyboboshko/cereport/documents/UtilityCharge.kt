@@ -22,9 +22,9 @@ import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
 
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import kotlinx.parcelize.Parcelize
 import io.github.sergeyboboshko.cereport.alerts.*
 
@@ -37,11 +37,11 @@ import kotlinx.coroutines.launch
 
 @Parcelize
 @Entity(tableName = "doc_utility_charge")
-@ObjectGeneratorCE(
+@CeGenerator(
     type = GeneratorType.Document, label = "Document Utility Charge",
     hasDetails = true, detailsEntityClass = DetailsUtilityCharge::class
 )
-//@MigrationEntityCE(migrationVersion = 2)
+//@CeMigrationEntity(migrationVersion = 2)
 @CeDocumentDescriber(
     accumulationRegistersExpense = [ARegPayments::class],
     documentType = DocTypes.DocUtilityCharge
@@ -54,7 +54,7 @@ data class DocUtilityCharge(
     override var isPosted: Boolean,
     override var isMarkedForDeletion: Boolean,
     //Address, Describe
-    @FormFieldCE(
+    @CeField(
         related = true,
         type = FieldTypeHelper.SELECT,
         relatedEntityClass = RefAddressesEntity::class,
@@ -62,7 +62,7 @@ data class DocUtilityCharge(
         placeHolder = "@@address_placeholder"
     )
     var addressId: Long,
-    @FormFieldCE(
+    @CeField(
         label = "@@describe_label",
         placeHolder = "@@describe_placeholder",
         type = FieldTypeHelper.TEXT
@@ -72,7 +72,7 @@ data class DocUtilityCharge(
     id, date, number, isPosted, isMarkedForDeletion
 ), Parcelable {
     @Ignore
-    @FormFieldCE(
+    @CeField(
         label = "-",
         type = FieldTypeHelper.COMPOSABLE,
         customComposable = "UtilityChargeHelper.FillDetails",

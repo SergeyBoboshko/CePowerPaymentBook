@@ -6,18 +6,18 @@ import androidx.room.PrimaryKey
 import io.github.sergeyboboshko.cereport.details.DetailsMeterEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.references.base.CommonReferenceEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import kotlinx.android.parcel.Parcelize
 
-@ObjectGeneratorCE(type = GeneratorType.Reference
+@CeGenerator(type = GeneratorType.Reference
     , label = "The Meters", hasDetails = true, detailsEntityClass = DetailsMeterEntity::class
 )
 @Parcelize
 @Entity(tableName="ref_meters")
-//@MigrationEntityCE(1)
+//@CeMigrationEntity(1)
 data class RefMeters(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
@@ -25,7 +25,7 @@ data class RefMeters(
     override var name: String,
     override var isMarkedForDeletion: Boolean,
 
-    @FormFieldCE(related = true, type = FieldTypeHelper.SELECT, label = "Meter's type", placeHolder = "Select type of the meter"
+    @CeField(related = true, type = FieldTypeHelper.SELECT, label = "Meter's type", placeHolder = "Select type of the meter"
         , relatedEntityClass = RefTypesOfMeters::class, extName = "type")
     var type:Long
 ): CommonReferenceEntity(id,date,name,isMarkedForDeletion), Parcelable{

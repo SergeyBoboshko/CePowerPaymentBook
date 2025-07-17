@@ -2,9 +2,9 @@ package io.github.sergeyboboshko.cereport.migrations
 
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import io.github.sergeyboboshko.composeentity_ksp.base.DatabaseMigration
+import io.github.sergeyboboshko.composeentity_ksp.base.CeManualMigration
 
-//@DatabaseMigration(
+//@CeManualMigration(
 //  version = 3
 //)
 //public object M3_DetailsAddressEntity_2_3 : Migration(2, 3) {

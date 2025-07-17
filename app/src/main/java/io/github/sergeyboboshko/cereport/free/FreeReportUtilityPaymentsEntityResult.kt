@@ -20,10 +20,10 @@ import io.github.sergeyboboshko.composeentity.daemons.localization.LocalizationM
 import io.github.sergeyboboshko.composeentity.daemons.openGeneratedPdfFromCursor
 import io.github.sergeyboboshko.composeentity_ksp.base.CeFree
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 
-@ObjectGeneratorCE(type = GeneratorType.Free, label = "Payments Balance", generationLevel = GenerationLevel.UI)
+@CeGenerator(type = GeneratorType.Free, label = "Payments Balance", generationLevel = GenerationLevel.UI)
 @CeFree(fields = "fields", alternatingRowColors = true,withRowNumber = true,
     onResult = "ShowResult")
 data class FreeReportUtilityPaymentsEntityResult (

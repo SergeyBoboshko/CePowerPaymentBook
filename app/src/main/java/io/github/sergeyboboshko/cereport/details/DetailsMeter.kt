@@ -10,13 +10,13 @@ import io.github.sergeyboboshko.cereport.references.RefMeters
 import io.github.sergeyboboshko.cereport.references.RefUtilitiseEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import kotlinx.android.parcel.Parcelize
 
-@ObjectGeneratorCE(type = GeneratorType.Details, label = "The Zones")
+@CeGenerator(type = GeneratorType.Details, label = "The Zones")
 @Parcelize
 @Entity(tableName = "ref_meter_details",
     foreignKeys = [
@@ -27,15 +27,15 @@ import kotlinx.android.parcel.Parcelize
             onDelete = ForeignKey.CASCADE
         )
     ])
-//@MigrationEntityCE(migrationVersion = 1)
+//@CeMigrationEntity(migrationVersion = 1)
 class DetailsMeterEntity(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
     override var parentId: Long,
-    @FormFieldCE(related = true, relatedEntityClass = RefMeterZones::class, extName = "zone", type = FieldTypeHelper.SELECT
+    @CeField(related = true, relatedEntityClass = RefMeterZones::class, extName = "zone", type = FieldTypeHelper.SELECT
         , label = "@@zone_label", placeHolder = "@@zone_placeholder", positionOnForm = 5, useForOrder = true)
     var zoneId:Long,
-    @FormFieldCE(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT, positionOnForm = 10)
+    @CeField(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT, positionOnForm = 10)
     var describe:String
 ): CommonDetailsEntity(id,parentId), Parcelable {
 

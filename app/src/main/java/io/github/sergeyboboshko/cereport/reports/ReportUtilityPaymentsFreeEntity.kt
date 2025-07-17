@@ -20,20 +20,19 @@ import io.github.sergeyboboshko.composeentity.daemons.emptyCursor
 import io.github.sergeyboboshko.composeentity.daemons.getEndOfDay
 import io.github.sergeyboboshko.composeentity.references.base.RefUI
 import io.github.sergeyboboshko.composeentity.reports.base.ReportEntity
-import io.github.sergeyboboshko.composeentity_ksp.base.CeFormField
-import io.github.sergeyboboshko.composeentity_ksp.base.CeObjectGenerator
+
 import io.github.sergeyboboshko.composeentity_ksp.base.CeReport
-import io.github.sergeyboboshko.composeentity_ksp.base.FormFieldCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
-import io.github.sergeyboboshko.composeentity_ksp.base.MigrationEntityCE
-import io.github.sergeyboboshko.composeentity_ksp.base.ObjectGeneratorCE
+import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
+import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.entity.GenerationLevel
 
 
 //створюємо єнтіті для зберігання налаштувань фильтра. Фільтр буде включати в себе адресу та розмір залишку
 @Entity(tableName = "rep_utilitypayments_free_settings")
-@ObjectGeneratorCE(type = GeneratorType.ReportCursor,label="Free Grouping Balance/Overpayment", generationLevel = GenerationLevel.UI, hasDetails = true, detailsEntityClass = FreeReportUtilityPaymentsEntityResult::class)
-//@MigrationEntityCE(14)
+@CeGenerator(type = GeneratorType.ReportCursor,label="Free Grouping Balance/Overpayment", generationLevel = GenerationLevel.UI, hasDetails = true, detailsEntityClass = FreeReportUtilityPaymentsEntityResult::class)
+//@CeMigrationEntity(14)
 @CeReport(resultEntity = FreeReportUtilityPaymentsEntityResult::class,
     query = """SELECT MAX(period) AS period, addressId, utilityId,Address,Utility,amount FROM
         (SELECT period, addressId, utilityId,
@@ -55,16 +54,16 @@ data class ReportUtilityPaymentsFreeEntity(
     @PrimaryKey(autoGenerate = true) override var id: Long,
     override var name:String,
     @ColumnInfo(defaultValue = "0")
-    @FormFieldCE(type = FieldTypeHelper.DATE,label="@@period", placeHolder = "@@period_label", onChange = "onPeriodEndEditing", wrapInFilter = true)
+    @CeField(type = FieldTypeHelper.DATE,label="@@period", placeHolder = "@@period_label", onChange = "onPeriodEndEditing", wrapInFilter = true)
     var period:Long,
-    @FormFieldCE(type = FieldTypeHelper.TEXT,label="@@describe_label", placeHolder = "@@describe_placeholder")
+    @CeField(type = FieldTypeHelper.TEXT,label="@@describe_label", placeHolder = "@@describe_placeholder")
     override var describe:String,
-    @FormFieldCE(related = true,label="@@address_label", placeHolder = "@@address_placeholder", relatedEntityClass = RefAddressesEntity::class
+    @CeField(related = true,label="@@address_label", placeHolder = "@@address_placeholder", relatedEntityClass = RefAddressesEntity::class
         , type = FieldTypeHelper.SELECT, wrapInFilter = true)
     var addressId:Long,
-    @FormFieldCE(type = FieldTypeHelper.DECIMAL,label="@@amount_label", placeHolder = "@@amount_placeholder", wrapInFilter = true)
+    @CeField(type = FieldTypeHelper.DECIMAL,label="@@amount_label", placeHolder = "@@amount_placeholder", wrapInFilter = true)
     var amount:Double,
-    @FormFieldCE(type = FieldTypeHelper.TEXT, label = "Conditions", placeHolder = "", renderInAddEdit = true)
+    @CeField(type = FieldTypeHelper.TEXT, label = "Conditions", placeHolder = "", renderInAddEdit = true)
     override var conditions: String
 
 ): ReportEntity(id,"addressId","amount",name,describe)
