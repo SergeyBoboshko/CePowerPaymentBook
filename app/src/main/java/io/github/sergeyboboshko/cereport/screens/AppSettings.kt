@@ -30,7 +30,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import com.google.gson.Gson
+import io.github.sergeyboboshko.cereport.R
 //import kotlinx.coroutines.Job
 //import kotlinx.coroutines.delay
 //import kotlinx.coroutines.launch
@@ -83,7 +85,7 @@ fun AppSettings() {
 
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         item {
-            Text("🎨 Що редагуємо:")
+            Text("🎨 ${stringResource(R.string.whatAdjasting)}:")
         }
         item {
             FlowRow {
