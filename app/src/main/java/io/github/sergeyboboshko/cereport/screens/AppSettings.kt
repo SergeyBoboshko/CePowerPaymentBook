@@ -23,8 +23,12 @@ import kotlin.math.roundToInt
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Checkbox
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import com.google.gson.Gson
 //import kotlinx.coroutines.Job
@@ -46,8 +50,14 @@ fun AppSettings() {
     var selectedKey by remember { mutableStateOf("background") }
 
     // Поточна палітра
-    val currentPalette = GlobalColors.currentPalette
 
+    var currentPalette = GlobalColors.currentPalette
+    LaunchedEffect(Unit) {
+        val cpalette = loadPalette(context)
+        if (cpalette!=null){
+            GlobalColors.currentPalette = cpalette
+        }
+    }
     // Дістаємо поточний колір залежно від вибору
     val currentColor = remember(selectedKey) {
         when (selectedKey) {
@@ -113,13 +123,17 @@ fun AppSettings() {
 
         }
         item {
-            Row {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Checkbox(
-                checked = useWhenAppOpening,
-                onCheckedChange = {
-                    useWhenAppOpening = it
-                    saveUseCustomPalettePreference(context, it)
-                })
+                    checked = useWhenAppOpening,
+                    onCheckedChange = {
+                        useWhenAppOpening = it
+                        saveUseCustomPalettePreference(context, it)
+                    }
+                )
+                Spacer(modifier = Modifier.width(8.dp)) // для відступу між прапорцем і текстом
                 Text("Use when application starting")
             }
 
