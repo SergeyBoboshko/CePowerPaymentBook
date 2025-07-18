@@ -27,4 +27,5 @@ fun NavGraphBuilder.OtherNavigation () {
     composable (route="locate_settings"){ TopScreenSettings() }
     composable(route = "app_settings") { AppSettings() }
     composable(route="delete_all_data") { DeleteAllDataScreen() }
+    composable(route="help_screen") { HelpScreen() }
 }
