@@ -23,7 +23,7 @@ Since the app does not collect data, **any data collected or processed on your d
 
 ## Contact
 
-If you have any questions or concerns about this Privacy Policy, please contact the app developer.
+If you have any questions or concerns about this Privacy Policy, please contact the app developer sergey.boboshko@gmail.com
 
 ---
 
