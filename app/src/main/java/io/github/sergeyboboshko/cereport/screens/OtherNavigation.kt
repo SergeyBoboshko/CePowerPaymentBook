@@ -5,6 +5,7 @@ import androidx.compose.runtime.internal.composableLambda
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.sergeyboboshko.cereport.daemons.DeleteAllDataScreen
 import io.github.sergeyboboshko.cereport.daemons.InitialDataPrompt
 import io.github.sergeyboboshko.cereport.daemons.InitialDataState
 import io.github.sergeyboboshko.composeentity.daemons.SettingsScreen
@@ -25,4 +26,5 @@ fun NavGraphBuilder.OtherNavigation () {
 
     composable (route="locate_settings"){ TopScreenSettings() }
     composable(route = "app_settings") { AppSettings() }
+    composable(route="delete_all_data") { DeleteAllDataScreen() }
 }

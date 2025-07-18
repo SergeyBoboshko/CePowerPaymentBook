@@ -24,5 +24,10 @@ fun TopScreenSettings(){
                 Text("App Settings")
             }
         }
+        item{
+            StyledButton(onClick = {navController?.navigate("delete_all_data")}){
+                    Text("Delete all data")
+            }
+        }
     }
 }
