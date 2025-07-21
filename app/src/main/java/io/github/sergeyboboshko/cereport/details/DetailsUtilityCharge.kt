@@ -22,6 +22,7 @@ import io.github.sergeyboboshko.cereport.references.RefMeters
 import io.github.sergeyboboshko.cereport.references.RefUtilitiseEntity
 import io.github.sergeyboboshko.cereport.references.RefUtilitiseEntityExt
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
+import io.github.sergeyboboshko.composeentity.daemons.FieldValidator
 import io.github.sergeyboboshko.composeentity.daemons.FormType
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
@@ -89,7 +90,8 @@ class DetailsUtilityCharge(
     var describe: String,
 
     @ColumnInfo(defaultValue = "0")
-    @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder", type = FieldTypeHelper.DECIMAL)
+    @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",
+        type = FieldTypeHelper.DECIMAL,condition = "DetailsUtilityChargeHelper.meterReadingCondition")
     var meterR: Double
 
     // @ColumnInfo(defaultValue = "0")
@@ -109,6 +111,16 @@ class DetailsUtilityCharge(
 }
 
 object DetailsUtilityChargeHelper {
+    var lastMeterReadings:Float = 0f
+    fun meterReadingCondition():FieldValidator {
+        return object : FieldValidator {
+            override var errorMessage = "Meter reading must be equals or biggest then previous one"
+            override fun isValid(value: Any):Boolean{
+                val a= value.toString().toFloatOrNull()?:0f
+                return a>=lastMeterReadings
+            }
+        }
+    }
 
     fun onUtilityEdited(currentValue: Any, vm: _BaseFormVM, ui: DetailsUtilityChargeUI) {
         val current = AppGlobalCE.docUtilityChargeViewModel.anyItem as DocUtilityChargeExt // take addressId from current document rendering on screen
@@ -131,11 +143,13 @@ object DetailsUtilityChargeHelper {
         }
     }
 
+
+
     @Composable
     fun LastReading(vm: _BaseFormVM, formType: FormType? = null) {
         val currElement = vm.anyItem as? DetailsUtilityChargeExt
         val parent = currElement?.parent
-        val lastReading = remember { mutableStateOf<Long?>(null) }
+        val lastReading = remember { mutableStateOf<Float?>(null) }
 
         if (currElement == null || parent == null) {
             Text("No previous readings")
@@ -154,10 +168,12 @@ object DetailsUtilityChargeHelper {
                 )
                 cursor.use {
                     if (it.moveToFirst()) {
-                        val value = it.getLong(it.getColumnIndexOrThrow("lastReading"))
+                        val value = it.getFloat(it.getColumnIndexOrThrow("lastReading"))
                         lastReading.value = value
+                        lastMeterReadings = value
                     } else {
                         lastReading.value = null
+                        lastMeterReadings = 0f
                     }
                 }
             }
