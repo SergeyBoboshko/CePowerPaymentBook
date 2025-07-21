@@ -31,7 +31,7 @@ fun HelpScreen() {
             color = MaterialTheme.colorScheme.primary,
             textDecoration = TextDecoration.Underline,
             modifier = Modifier.clickable {
-                uriHandler.openUri("https://github.com/yourusername/yourrepo") // заміни на свій лінк
+                uriHandler.openUri("https://github.com/SergeyBoboshko/CePowerPaymentBook/tree/main") // заміни на свій лінк
             }
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -41,7 +41,7 @@ fun HelpScreen() {
             color = MaterialTheme.colorScheme.primary,
             textDecoration = TextDecoration.Underline,
             modifier = Modifier.clickable {
-                uriHandler.openUri("https://yourdomain.com/privacy-policy") // лінк на політику приватності
+                uriHandler.openUri("https://github.com/SergeyBoboshko/CePowerPaymentBook/blob/main/PRIVACY_POLICY.md") // лінк на політику приватності
             }
         )
     }

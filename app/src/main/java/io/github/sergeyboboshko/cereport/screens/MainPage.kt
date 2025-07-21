@@ -1,18 +1,30 @@
 package io.github.sergeyboboshko.cereport.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.github.sergeyboboshko.composeentity.daemons.BaseUI
 import io.github.sergeyboboshko.composeentity.daemons.buttons.ClassicButtons
 import io.github.sergeyboboshko.composeentity.daemons.SelfNav
@@ -144,7 +156,7 @@ fun MainPage(form: String) {
                     ui = DocSubsidyUI() as BaseUI,
                     commonText = "Subsidy Payment Document",
                     subText = "",
-                    icon = ImageVector.vectorResource(R.drawable.payments_24px),
+                    icon = ImageVector.vectorResource(R.drawable.paid_48px),
                     iconSize = 48.dp,
                     iconAligment = IconAligment.LEFT
                 )
@@ -156,11 +168,12 @@ fun MainPage(form: String) {
 
         item{
             FlowRow {
-                ClassicButtons.NavigationButton(
+                ClassicButtons.IconAndTextNavigationButton(
                     routePath = SelfNav.getMainScreen(),
                     ui = ReportUtilityPaymentsFreeEntityUI() as BaseUI,
-                    caption = stringResource(R.string.payment_balance),
-                    null
+                    commonText = stringResource(R.string.payment_balance),
+                    icon = ImageVector.vectorResource(R.drawable.article_48px),
+                    iconSize = 48.dp
                 )
                 StyledButton(icon = Icons.Default.Face, displayMode = ButtonDisplayMode.IconOnly, iconContentDescription = "INIT Fill",
                     onClick = {
@@ -169,6 +182,33 @@ fun MainPage(form: String) {
                     })
             }
         }
+        item{
+            CenteredCopyrightText()
+        }
 
+    }
+}
+
+@Composable
+fun CenteredCopyrightText() {
+    Column(
+        modifier = Modifier.fillMaxWidth(), // Розтягуємо Column на всю ширину
+        horizontalAlignment = Alignment.CenterHorizontally // Вирівнюємо вміст по центру горизонтально
+    ) {
+        Text(
+            text = buildAnnotatedString {
+                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = 14.sp)) {
+                    append("© 2025 Serhij Boboshko sergey.boboshko@gmail.com, all rights recived")
+                }
+            }
+        )
+        // Додаємо новий Text для "Powered By" у новому рядку
+        Text(
+            text = buildAnnotatedString {
+                withStyle(style = SpanStyle(color = Color.Gray, fontSize = 12.sp)) {
+                    append("Powered By Compose entity")
+                }
+            }
+        )
     }
 }
