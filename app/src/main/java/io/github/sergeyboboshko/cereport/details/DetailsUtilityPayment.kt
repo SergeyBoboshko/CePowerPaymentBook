@@ -1,22 +1,34 @@
 package io.github.sergeyboboshko.cereport.details
 
 import android.os.Parcelable
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.viewModelScope
 import androidx.room.AutoMigration
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.RenameColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
+import io.github.sergeyboboshko.cereport.daemons.DetailsPaymentDocumentsHelper
+
+import io.github.sergeyboboshko.cereport.daemons.DetailsPaymentHelperClass
 import io.github.sergeyboboshko.cereport.documents.DocUtilityCharge
 import io.github.sergeyboboshko.cereport.documents.DocUtilityChargeExt
 import io.github.sergeyboboshko.cereport.documents.DocUtilityPayment
 import io.github.sergeyboboshko.cereport.documents.DocUtilityPaymentExt
 import io.github.sergeyboboshko.cereport.references.RefMeters
 import io.github.sergeyboboshko.cereport.references.RefUtilitiseEntity
+import io.github.sergeyboboshko.composeentity.daemons.BaseUI
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
+import io.github.sergeyboboshko.composeentity.daemons.FieldValidator
+import io.github.sergeyboboshko.composeentity.daemons.FormType
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
@@ -46,6 +58,13 @@ import kotlinx.coroutines.launch
 class DetailsUtilityPayment(
     @PrimaryKey(autoGenerate = true)
     override var id: Long,
+    @CeField(
+        related = true,
+        relatedEntityClass = DocUtilityPayment::class,
+        renderInAddEdit = false,
+        renderInList = false,
+        renderInView = false
+    )
     override var parentId: Long,
     @CeField(
         related = true,
@@ -56,9 +75,10 @@ class DetailsUtilityPayment(
         placeHolder = "@@utility_placeholder",
         positionOnForm = 1,
         useForOrder = true,
+        //onChange = "DetailsUtilityPaymentHelper.onUtilityEdited"
         onChange = "DetailsUtilityPaymentHelper.onUtilityEdited"
     )
-    var utilityId: Long,
+    override var utilityId: Long,
     @CeField(
         related = true,
         relatedEntityClass = RefMeters::class,
@@ -69,7 +89,7 @@ class DetailsUtilityPayment(
         positionOnForm = 1,
         useForOrder = true
     )
-    var meterId: Long,
+    override var meterId: Long,
     @CeField(
         label = "@@amount_label",
         placeHolder = "@@amount_placeholder",
@@ -87,48 +107,30 @@ class DetailsUtilityPayment(
     @CeField(
         label = "@@meter_reading_label",
         placeHolder = "@@meter_reading_placeholder",
-        type = FieldTypeHelper.DECIMAL
+        type = FieldTypeHelper.DECIMAL,
+        condition = "io.github.sergeyboboshko.cereport.daemons.DetailsPaymentDocumentsHelper.meterReadingCondition"
     )
     var meterR: Double
-) : CommonDetailsEntity(id, parentId), Parcelable {
-
+) : CommonDetailsEntity(id, parentId), DetailsPaymentHelperClass, Parcelable {
+    @Ignore
+    @CeField(
+        placeHolder = "Last reading:",
+        renderInList = false,
+        renderInAddEdit = true,
+        type = FieldTypeHelper.COMPOSABLE,
+        //customComposable = "io.github.sergeyboboshko.cereport.daemons.DetailsPaymentDocumentsHelper.LastReading"
+        customComposable = "DetailsUtilityPaymentHelper.LastReading"
+    )
+    var lastReading: String = ""
 }
-
-//@DeleteTable(deletedTableName = "Album")
-//@RenameTable(fromTableName = "Singer", toTableName = "Artist")
-//@RenameColumn(
-//    tableName = "details_utility_payment",
-//   fromColumnName = "songName",
-//    toColumnName = "songTitle"
-//)
-//@DeleteColumn(fromTableName = "Song", deletedColumnName = "genre")
-//@androidx.room.
-//class MyExampleAutoMigration : AutoMigrationSpec {
- //   @Override
- //   override fun onPostMigrate(db: SupportSQLiteDatabase) {
- //       // Invoked once auto migration is done        }     }
- //   }
-//}
-
 object DetailsUtilityPaymentHelper{
-    fun onUtilityEdited(currentValue: Any, vm: _BaseFormVM, ui: DetailsUtilityPaymentUI){
-        val current = AppGlobalCE.docUtilityPaymentViewModel.anyItem as DocUtilityPaymentExt//take addressId from current document rendering on screen
-        val addrID = current.address?.id
-        //find the meter linked to utility and fill meter field
-        val sqlText = "SELECT * FROM ref_adress_details WHERE utilityId = ? AND parentId=?" //get dependency between utility and meter in address details table
-        val params = arrayOf((currentValue as RefUtilitiseEntity).id,addrID)//current value contents id of object repredents utility in table
-        //if field is related, currentValue is not of simple types, but Ext class of the current entity
-        AppGlobalCE.forSQLViewModel.viewModelScope.launch(Dispatchers.IO) {
-            val cursor = AppGlobalCE.forSQLViewModel.repository.generateResultFromReport(sqlText, params as Array<Any>)
-            if (cursor.moveToFirst()) {
-                val meterIdIndex = cursor.getColumnIndex("meterId")
-                if (meterIdIndex != -1) {
-                    val meterId = cursor.getString(meterIdIndex)
-                    vm.updateField("meterId",meterId)//set new value linked to Utility
-                    vm.updateView()//say to form VM update elements on itself
-                }
-            }
-            cursor.close() // не забудь закрити курсор
-        }
+    fun onUtilityEdited(currentValue: Any, vm: _BaseFormVM, ui: BaseUI){
+        DetailsPaymentDocumentsHelper.onUtilityEdited(currentValue,vm, ui,AppGlobalCE.docUtilityPaymentViewModel as _BaseFormVM)
+    }
+
+
+    @Composable
+    fun LastReading(vm: _BaseFormVM, formType: FormType? = null) {
+        DetailsPaymentDocumentsHelper.LastReading(vm,formType,AppGlobalCE.docUtilityPaymentViewModel as _BaseFormVM)
     }
 }

@@ -17,6 +17,7 @@ import androidx.room.PrimaryKey
 import io.github.sergeyboboshko.cereport.MyApplication1
 import io.github.sergeyboboshko.cereport.accumulationregisters.ARegPayments
 import io.github.sergeyboboshko.cereport.alerts.CleanAndRefillDialodue
+import io.github.sergeyboboshko.cereport.daemons.DocsPayment
 import io.github.sergeyboboshko.cereport.details.DetailsUtilityCharge
 import io.github.sergeyboboshko.cereport.details.DetailsUtilityPayment
 import io.github.sergeyboboshko.cereport.references.RefAddressesEntity
@@ -49,12 +50,12 @@ data class DocUtilityPayment(
     //Address, Describe
     @CeField(related = true, type = FieldTypeHelper.SELECT, relatedEntityClass = RefAddressesEntity::class,
         label = "@@address_label", placeHolder = "@@address_placeholder")
-    var addressId:Long,
+    override var addressId:Long,
     @CeField(label = "@@describe_label", placeHolder = "@@describe_placeholder",type= FieldTypeHelper.TEXT)
     var describe:String
 ): CommonDocumentEntity(
     id,date, number, isPosted , isMarkedForDeletion
-), Parcelable
+), DocsPayment, Parcelable
 {
     @Ignore
     @CeField(

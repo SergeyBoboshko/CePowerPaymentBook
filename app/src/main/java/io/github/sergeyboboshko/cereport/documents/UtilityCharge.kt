@@ -31,6 +31,7 @@ import io.github.sergeyboboshko.cereport.alerts.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import io.github.sergeyboboshko.cereport.daemons.DocsPayment
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import kotlinx.coroutines.launch
@@ -61,7 +62,7 @@ data class DocUtilityCharge(
         label = "@@address_label",
         placeHolder = "@@address_placeholder"
     )
-    var addressId: Long,
+    override var addressId: Long,
     @CeField(
         label = "@@describe_label",
         placeHolder = "@@describe_placeholder",
@@ -70,7 +71,7 @@ data class DocUtilityCharge(
     var describe: String
 ) : CommonDocumentEntity(
     id, date, number, isPosted, isMarkedForDeletion
-), Parcelable {
+), DocsPayment, Parcelable {
     @Ignore
     @CeField(
         label = "-",
