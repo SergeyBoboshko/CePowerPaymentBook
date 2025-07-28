@@ -1,21 +1,29 @@
 package io.github.sergeyboboshko.cereport.details
 
 import android.os.Parcelable
+import androidx.compose.runtime.Composable
 import androidx.room.AutoMigration
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.RenameColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
+import io.github.sergeyboboshko.cereport.daemons.DetailsPaymentDocumentsHelper
+import io.github.sergeyboboshko.cereport.daemons.DocsPayment
 import io.github.sergeyboboshko.cereport.documents.DocSubsidy
 import io.github.sergeyboboshko.cereport.documents.DocUtilityCharge
 import io.github.sergeyboboshko.cereport.documents.DocUtilityPayment
 import io.github.sergeyboboshko.cereport.references.RefMeters
 import io.github.sergeyboboshko.cereport.references.RefUtilitiseEntity
+import io.github.sergeyboboshko.composeentity.daemons.BaseUI
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
+import io.github.sergeyboboshko.composeentity.daemons.FormType
+import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
+import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 import io.github.sergeyboboshko.composeentity_ksp.base.CeMigrationEntity
@@ -48,7 +56,8 @@ class DetailsSubsidy(
         label = "@@utility_label",
         placeHolder = "@@utility_placeholder",
         positionOnForm = 1,
-        useForOrder = true
+        useForOrder = true,
+        onChange = "DetailsSubsidyHelper.onUtilityEdited"
     )
     var utilityId: Long,
     @CeField(
@@ -78,10 +87,30 @@ class DetailsSubsidy(
     @CeField(
         label = "@@meter_reading_label",
         placeHolder = "@@meter_reading_placeholder",
-        type = FieldTypeHelper.DECIMAL
+        type = FieldTypeHelper.DECIMAL,
+        condition = "io.github.sergeyboboshko.cereport.daemons.DetailsPaymentDocumentsHelper.meterReadingCondition"
     )
     var meterR: Double
-) : CommonDetailsEntity(id, parentId), Parcelable {
-
+) : CommonDetailsEntity(id, parentId),  Parcelable {
+    @Ignore
+    @CeField(
+        placeHolder = "Last reading:",
+        renderInList = false,
+        renderInAddEdit = true,
+        type = FieldTypeHelper.COMPOSABLE,
+        customComposable = "DetailsSubsidyHelper.LastReading"
+        //customComposable = "DetailsUtilityChargeHelper.LastReading"
+    )
+    var lastReading: String = ""
 }
 
+object DetailsSubsidyHelper {
+    fun onUtilityEdited(currentValue: Any, vm: _BaseFormVM, ui: BaseUI){
+        DetailsPaymentDocumentsHelper.onUtilityEdited(currentValue,vm, ui, AppGlobalCE.docSubsidyViewModel as _BaseFormVM)
+    }
+
+    @Composable
+    fun LastReading(vm: _BaseFormVM, formType: FormType? = null) {
+        DetailsPaymentDocumentsHelper.LastReading(vm,formType, AppGlobalCE.docSubsidyViewModel as _BaseFormVM)
+    }
+}
