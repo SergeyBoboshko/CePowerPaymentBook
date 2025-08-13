@@ -3,20 +3,16 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
     id("com.google.devtools.ksp") version "2.0.0-1.0.24"
-
     kotlin("plugin.serialization")
 }
 
 android {
-    namespace = "io.github.sergeyboboshko.cereport"
+    namespace = "io.github.sergeyboboshko.ceppb"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "io.github.sergeyboboshko.cereport"
+        applicationId = "io.github.sergeyboboshko.ceppb"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
@@ -70,32 +66,13 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
-    val ceVersion = "1.0.28"
+    val ceVersion = "2.0.0-beta.1"
     implementation("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     ksp("io.github.sergeyboboshko:composeentity_ksp:$ceVersion")
     implementation("io.github.sergeyboboshko:composeentity:$ceVersion")
 
-//    implementation (files("libs/composeentity_ksp.jar"))
-//    ksp(files("libs/composeentity_ksp.jar"))
-//    implementation(files("libs/composeentity-1.0.10-sources.jar"))
-//    implementation (project(":composeentity_ksp"))
-//    ksp(project(":composeentity_ksp"))
-//    implementation(project(":composeentity_app"))
-
     implementation("androidx.navigation:navigation-compose:2.8.3")
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    kapt("androidx.room:room-compiler:$room_version")
-}
 
-// turns on kapt
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
-    arguments {
-        arg("room.schemaLocation", "$projectDir/schemas")
-    }
 }
 
 // ksp set

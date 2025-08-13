@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CE Power Payment Book</string>
+    <string name="address_label">Address</string>
+    <string name="address_placeholder">Enter Address</string>
     <string name="date_label">Date</string>
     <string name="date_placeholder">Enter Date</string>
     <string name="name_label">Name</string>
@@ -14,8 +16,6 @@
     <string name="zipCode_placeholder">Enter Zip Code</string>
     <string name="city_label">City</string>
     <string name="city_placeholder">Enter City</string>
-    <string name="address_label">Address</string>
-    <string name="address_placeholder">Enter Address</string>
     <string name="houseNumber_label">House</string>
     <string name="houseNumber_placeholder">Enter Number of Building</string>
     <string name="houseBlock_label">Block</string>
@@ -42,4 +42,6 @@
     <string name="period">Period</string>
     <string name="period_label">Input Period</string>
     <string name="whatAdjasting">What to edit</string>
+    <string name="doc_tariff_registry">Tariff Registry</string>
+    <string name="details_tariff_registry">Details Tariff Registry</string>
 </resources>
