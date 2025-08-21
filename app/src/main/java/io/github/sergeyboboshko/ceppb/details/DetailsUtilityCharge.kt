@@ -3,7 +3,10 @@ package io.github.sergeyboboshko.ceppb.details
 import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
 import androidx.compose.runtime.Composable
 import io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper
+import io.github.sergeyboboshko.ceppb.daemons.MyGlobalVariables
 import io.github.sergeyboboshko.ceppb.documents.DocUtilityCharge
+import io.github.sergeyboboshko.ceppb.documents.DocUtilityChargeExt
+import io.github.sergeyboboshko.ceppb.references.RefMeterZones
 import io.github.sergeyboboshko.ceppb.references.RefMeters
 import io.github.sergeyboboshko.ceppb.references.RefUtilitiseEntity
 import io.github.sergeyboboshko.composeentity.daemons.BaseUI
@@ -58,6 +61,17 @@ class DetailsUtilityCharge(
         useForOrder = true
     )
     var meterId: Long,
+    @CeField(
+        related = true,
+        relatedEntityClass = RefMeterZones::class,
+        extName = "zone",
+        type = FieldTypeHelper.SELECT,
+        label = "@@zone_label",
+        placeHolder = "@@zone_placeholder",
+        positionOnForm = 1,
+        useForOrder = true
+    )
+    var zoneId:Long,
     @CeField(label = "@@amount_label", placeHolder = "@@amount_placeholder", type = FieldTypeHelper.DECIMAL)
     var amount: Double,
     @CeField(label = "@@describe_label", placeHolder = "@@describe_placeholder", type = FieldTypeHelper.TEXT)
@@ -66,7 +80,8 @@ class DetailsUtilityCharge(
     
     @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",
         type = FieldTypeHelper.DECIMAL,
-        condition = "io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper.meterReadingCondition"
+        condition = "io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper.meterReadingCondition",
+         onEndEditing= "DetailsUtilityChargeHelper.onMeterREdited"
         //condition = "DetailsUtilityChargeHelper.meterReadingCondition"
     )
     var meterR: Double
@@ -97,5 +112,10 @@ object DetailsUtilityChargeHelper {
     @Composable
     fun LastReading(vm: _BaseFormVM, formType: FormType? = null) {
         DetailsPaymentDocumentsHelper.LastReading(vm,formType,AppGlobalCE.docUtilityChargeViewModel as _BaseFormVM)
+    }
+
+    fun onMeterREdited (currentValue: Any, vm: _BaseFormVM, ui: BaseUI){
+        val period = (AppGlobalCE.docUtilityChargeViewModel.anyItem as DocUtilityChargeExt).link.date
+        MyGlobalVariables.paymentDocumentsHelperWiewModel.gefAmountCount(period,currentValue.toString().toFloat(), vm, null)
     }
 }

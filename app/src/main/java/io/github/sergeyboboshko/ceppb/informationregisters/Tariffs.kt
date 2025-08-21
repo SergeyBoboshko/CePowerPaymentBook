@@ -1,28 +1,27 @@
-package io.github.sergeyboboshko.ceppb.details
+package io.github.sergeyboboshko.ceppb.informationregisters
 
-import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
-import io.github.sergeyboboshko.ceppb.documents.DocTariffRegistry
-import io.github.sergeyboboshko.ceppb.documents.DocTypes
-import io.github.sergeyboboshko.ceppb.informationregisters.Tariffs
 import io.github.sergeyboboshko.ceppb.references.RefMeterZones
 import io.github.sergeyboboshko.ceppb.references.RefUtilitiseEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
-import io.github.sergeyboboshko.composeentity.details.base.CommonDetailsEntity
+import io.github.sergeyboboshko.composeentity.daemons.TransactionType
+import io.github.sergeyboboshko.composeentity.informationregisters.base.InfRegEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
-import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
+import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
 import io.github.sergeyboboshko.composeentity_ksp.base.CeField
 import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 import io.github.sergeyboboshko.composeentity_ksp.base.GeneratorType
 
-
-@CeGenerator(type = GeneratorType.Details, label = "@@details_tariff_registry")
-@CeEntity(
-    tableName = "details_tariff_registry")
-@CeCreateTable("details_tariff_registry")
-class DetailsTariffRegistry(
-    
+@CeCreateTable("inforeg_tariffs")
+@CeEntity("inforeg_tariffs")
+@CeGenerator(type = GeneratorType.InformationRegister, label = "@@info_reg_tariffs_label")
+class Tariffs(
     override var id: Long,
-    override var parentId: Long,
+    @CeField(type = FieldTypeHelper.DATE_TIME)
+    override var period: Long,
+    override var registratorID: Long,
+    override var stringID: Long,
+    override var registratorType: Int,
+    override var transactionType: TransactionType,
     @CeField(
         related = true,
         relatedEntityClass = RefUtilitiseEntity::class,
@@ -34,12 +33,13 @@ class DetailsTariffRegistry(
         useForOrder = true
     )
     var utilityId: Long,
-    
+
     @CeField(related = true, relatedEntityClass = RefMeterZones::class, extName = "zone", type = FieldTypeHelper.SELECT
         , label = "@@zone_label", placeHolder = "@@zone_placeholder", positionOnForm = 5, useForOrder = true)
     var zoneId:Long,
     @CeField(label = "@@amount_label", placeHolder = "@@amount_placeholder", type = FieldTypeHelper.DECIMAL)
-    var amount: Double,
-    @CeField(label = "@@describe_label", placeHolder = "@@describe_placeholder", type = FieldTypeHelper.TEXT)
-    var describe: String
-): CommonDetailsEntity(id, parentId)
+    var amount: Double
+
+):InfRegEntity(id,period,registratorID,stringID,registratorType) {
+
+}

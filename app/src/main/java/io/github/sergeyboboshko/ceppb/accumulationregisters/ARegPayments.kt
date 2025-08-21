@@ -3,6 +3,7 @@ package io.github.sergeyboboshko.ceppb.accumulationregisters
 import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
 
 import io.github.sergeyboboshko.ceppb.references.RefAddressesEntity
+import io.github.sergeyboboshko.ceppb.references.RefMeterZones
 import io.github.sergeyboboshko.ceppb.references.RefMeters
 import io.github.sergeyboboshko.ceppb.references.RefUtilitiseEntity
 import io.github.sergeyboboshko.composeentity.accumulationregisters.base.CommonAccumRegisterEntity
@@ -38,6 +39,17 @@ data class ARegPayments(
         , label = "@@meter_label", placeHolder = "@@meter_placeholder",
          useForOrder = true)
     var meterId:Long,
+    @CeField(
+        related = true,
+        relatedEntityClass = RefMeterZones::class,
+        extName = "zone",
+        type = FieldTypeHelper.SELECT,
+        label = "@@zone_label",
+        placeHolder = "@@zone_placeholder",
+        positionOnForm = 1,
+        useForOrder = true
+    )
+    var zoneId:Long,
     @CeField(label = "@@amount_label", placeHolder = "@@amount_placeholder",type= FieldTypeHelper.DECIMAL)
     var amount: Double,
     @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder",type= FieldTypeHelper.DECIMAL)

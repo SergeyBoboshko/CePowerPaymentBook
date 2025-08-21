@@ -101,21 +101,23 @@ fun startInitializator() {
         val detailsExpense = AppGlobalCE.detailsUtilityChargeViewModel
 
         //(detailsExpense as _DetailsViewModel).setHatID(1,"")
-        detailsExpense.simpleInsert(DetailsUtilityCharge(1, 1, 1, 1,  10.0, "", 10000.0))
-        detailsExpense.simpleInsert(DetailsUtilityCharge(2, 1, 2, 2,  123.0, "", 902.0))
-        detailsExpense.simpleInsert(DetailsUtilityCharge(3, 1, 3, 3,  201.0, "", 32005.0))
-        detailsExpense.simpleInsert(DetailsUtilityCharge(4, 1, 4, 0,  20.0, "", 0.0))
-        detailsExpense.simpleInsert(DetailsUtilityCharge(5, 1, 5, 0,  35.0, "", 0.0))
-        detailsExpense.simpleInsert(DetailsUtilityCharge(6, 1, 6, 0, 50.0, "", 0.0))
+        detailsExpense.simpleInsert(DetailsUtilityCharge(1, 1, 1, 1,  1,10.0, "", 10000.0))
+        detailsExpense.simpleInsert(DetailsUtilityCharge(2, 1, 2, 2,  1,123.0, "", 902.0))
+        detailsExpense.simpleInsert(DetailsUtilityCharge(3, 1, 3, 3,  2,201.0, "", 32005.0))
+        detailsExpense.simpleInsert(DetailsUtilityCharge(4, 1, 3, 3,  3,201.0, "", 32005.0))
+        detailsExpense.simpleInsert(DetailsUtilityCharge(5, 1, 4, 0,  0,20.0, "", 0.0))
+        detailsExpense.simpleInsert(DetailsUtilityCharge(6, 1, 5, 0,  0,35.0, "", 0.0))
+        detailsExpense.simpleInsert(DetailsUtilityCharge(7, 1, 6, 0, 0,50.0, "", 0.0))
 
         val paymentsVM = AppGlobalCE.aRegPaymentsViewModel
 
-        paymentsVM.simpleInsert(ARegPayments(1, period, 1, 1, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  1, 1, 10.0, 10000.0))
-        paymentsVM.simpleInsert(ARegPayments(2, period, 1, 2, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  2, 2, 123.0, 902.0))
-        paymentsVM.simpleInsert(ARegPayments(3, period, 1, 3, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  3, 3, 201.0, 32005.0))
-        paymentsVM.simpleInsert(ARegPayments(4, period, 1, 4, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  4, 0, 20.0, 0.0))
-        paymentsVM.simpleInsert(ARegPayments(5, period, 1, 5, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  5, 0, 35.0, 0.0))
-        paymentsVM.simpleInsert(ARegPayments(6, period, 1, 6, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  6, 0, 50.0, 0.0))
+        paymentsVM.simpleInsert(ARegPayments(1, period, 1, 1, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  1, 1, 1,10.0, 10000.0))
+        paymentsVM.simpleInsert(ARegPayments(2, period, 1, 2, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  2, 2, 1,123.0, 902.0))
+        paymentsVM.simpleInsert(ARegPayments(3, period, 1, 3, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  3, 3, 2, 201.0, 32005.0))
+        paymentsVM.simpleInsert(ARegPayments(4, period, 1, 3, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  3, 3, 3, 201.0, 32005.0))
+        paymentsVM.simpleInsert(ARegPayments(5, period, 1, 4, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  4, 0, 0,20.0, 0.0))
+        paymentsVM.simpleInsert(ARegPayments(6, period, 1, 5, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  5, 0, 0,35.0, 0.0))
+        paymentsVM.simpleInsert(ARegPayments(7, period, 1, 6, DocTypes.DocUtilityCharge, TransactionType.EXPENSE, 1,  6, 0, 0,50.0, 0.0))
 
         val payDocVM = AppGlobalCE.docUtilityPaymentViewModel
 
@@ -124,19 +126,21 @@ fun startInitializator() {
         //delay(2000)
         val detailsPay = AppGlobalCE.detailsUtilityPaymentViewModel
         //(detailsPay as _DetailsViewModel).setHatID(1,"")
-        detailsPay.simpleInsert(DetailsUtilityPayment(1, 1, 1, 1, 10.0, "", 10000.0))
-        detailsPay.simpleInsert(DetailsUtilityPayment(2, 1, 2, 2,  123.0, "", 902.0))
-        detailsPay.simpleInsert(DetailsUtilityPayment(3, 1, 3, 3, 201.0, "", 32005.0))
-        detailsPay.simpleInsert(DetailsUtilityPayment(4, 1, 4, 0,  20.0, "", 0.0))
-        detailsPay.simpleInsert(DetailsUtilityPayment(5, 1, 5, 0,  35.0, "", 0.0))
-        detailsPay.simpleInsert(DetailsUtilityPayment(6, 1, 6, 0, 50.0, "", 0.0))
+        detailsPay.simpleInsert(DetailsUtilityPayment(1, 1, 1, 1, 1,10.0, "", 10000.0))
+        detailsPay.simpleInsert(DetailsUtilityPayment(2, 1, 2, 2,  1,123.0, "", 902.0))
+        detailsPay.simpleInsert(DetailsUtilityPayment(3, 1, 3, 3, 2,201.0, "", 32005.0))
+        detailsPay.simpleInsert(DetailsUtilityPayment(4, 1, 3, 3, 3,201.0, "", 32005.0))
+        detailsPay.simpleInsert(DetailsUtilityPayment(5, 1, 4, 0,  0,20.0, "", 0.0))
+        detailsPay.simpleInsert(DetailsUtilityPayment(6, 1, 5, 0,  0,35.0, "", 0.0))
+        detailsPay.simpleInsert(DetailsUtilityPayment(7, 1, 6, 0, 0,50.0, "", 0.0))
 
-        paymentsVM.simpleInsert(ARegPayments(7, period, 1, 1, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 1, 1,  11.0, 10000.0))
-        paymentsVM.simpleInsert(ARegPayments(8, period, 1, 2, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 2, 2,  121.0, 902.0))
-        paymentsVM.simpleInsert(ARegPayments(9, period, 1, 3, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 3, 3,  202.0, 32005.0))
-        paymentsVM.simpleInsert(ARegPayments(10, period, 1, 4, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 4, 0,  23.0, 0.0))
-        paymentsVM.simpleInsert(ARegPayments(11, period, 1, 5, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 5, 0,  39.0, 0.0))
-        paymentsVM.simpleInsert(ARegPayments(12, period, 1, 6, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 6, 0,  55.0, 0.0))
+        paymentsVM.simpleInsert(ARegPayments(7, period, 1, 1, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 1, 1,  1,11.0, 10000.0))
+        paymentsVM.simpleInsert(ARegPayments(8, period, 1, 2, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 2, 2,  1,121.0, 902.0))
+        paymentsVM.simpleInsert(ARegPayments(9, period, 1, 3, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 3, 3,  2,202.0, 32005.0))
+        paymentsVM.simpleInsert(ARegPayments(10, period, 1, 3, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 3, 3,  3,202.0, 32005.0))
+        paymentsVM.simpleInsert(ARegPayments(13, period, 1, 4, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 4, 0,  0,23.0, 0.0))
+        paymentsVM.simpleInsert(ARegPayments(11, period, 1, 5, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 5, 0,  0,39.0, 0.0))
+        paymentsVM.simpleInsert(ARegPayments(12, period, 1, 6, DocTypes.DocUtilityPayment, TransactionType.INCOME, 1, 6, 0,  0,55.0, 0.0))
 
         withContext(Dispatchers.Main) {
             Toast.makeText(GlobalContext.context, "Done!", Toast.LENGTH_SHORT).show()

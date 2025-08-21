@@ -44,4 +44,5 @@
     <string name="whatAdjasting">What to edit</string>
     <string name="doc_tariff_registry">Tariff Registry</string>
     <string name="details_tariff_registry">Details Tariff Registry</string>
+    <string name="info_reg_tariffs_label">Tariff</string>
 </resources>

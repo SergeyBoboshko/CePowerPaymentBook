@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 interface DocsPayment{
     var addressId:Long
     var date:Long
+    var id:Long
 }
 interface DetailsPaymentHelperClass{
     var parentId: Long
@@ -93,9 +94,11 @@ object DetailsPaymentDocumentsHelper {
                         val value = it.getFloat(it.getColumnIndexOrThrow("lastReading"))
                         lastReading.value = value
                         lastMeterReadings = value
+                        MyGlobalVariables.paymentDocumentsHelperWiewModel._lastMeterReadings.value = lastMeterReadings
                     } else {
                         lastReading.value = null
                         lastMeterReadings = 0f
+                        MyGlobalVariables.paymentDocumentsHelperWiewModel._lastMeterReadings.value = 0f
                     }
                 }
             }

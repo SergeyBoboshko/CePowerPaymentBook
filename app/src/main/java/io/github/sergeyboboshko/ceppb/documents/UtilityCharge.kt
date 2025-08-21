@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
@@ -29,6 +30,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import io.github.sergeyboboshko.ceppb.daemons.DocsPayment
+import io.github.sergeyboboshko.ceppb.daemons.MyGlobalVariables
+import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentExtEntity
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeIgnore
@@ -87,36 +90,18 @@ object UtilityChargeHelper {
     fun FillDetails(vm: _BaseFormVM, formType: FormType? = null) {
         var showDialogue by remember { mutableStateOf(false) }
         val currentDoc = vm.anyItem as DocUtilityChargeExt
-        var refresher by remember { mutableStateOf(true) }
-        LaunchedEffect(refresher) {
+        var refresher = MyGlobalVariables.paymentDocumentsHelperWiewModel.refresher.collectAsState()
+        LaunchedEffect(refresher.value) {
             AppGlobalCE.detailsUtilityChargeViewModel.refreshAll()
             AppGlobalCE.detailsUtilityChargeViewModel.refreshAllExt()
        }
         if (showDialogue) {
             CleanAndRefillDialodue(
                 onConfirm = {
-                    //Toast.makeText(MyApplication1.appContext,"We Filling Details",Toast.LENGTH_SHORT).show()
-                    val sqlDelete = "DELETE FROM details_utility_charge WHERE parentId = ?"
-                    val sqlInsert = """
-                        INSERT INTO details_utility_charge (
-                                parentId, utilityId, meterId, amount, describe, meterR
-                            )
-                            SELECT ?, utilityId, meterId, 0.0, describe, 0.0
-                            FROM ref_adress_details
-                         WHERE parentId = ?
-                        """.trimIndent()
-
-                    AppGlobalCE.docUtilityChargeViewModel.viewModelScope.launch {
-                        AppGlobalCE.forSQLViewModel.execSQL(
-                                sqlDelete,
-                                arrayOf(currentDoc.link.id)
-                            )
-                        AppGlobalCE.forSQLViewModel.execSQL(
-                                sqlInsert,
-                                arrayOf(currentDoc.link.id, currentDoc.link.addressId)
-                            )
-                        refresher=!refresher
-                    }
+                    MyGlobalVariables.paymentDocumentsHelperWiewModel.fillDetails(
+                        detailsTableName = "details_utility_charge",
+                        currentDoc = currentDoc as CommonDocumentExtEntity<CommonDocumentEntity>
+                    )
                     showDialogue = false
                 },
                 onDismiss = {

@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,12 +18,14 @@ import io.github.sergeyboboshko.ceppb.MyApplication1
 import io.github.sergeyboboshko.ceppb.accumulationregisters.ARegPayments
 import io.github.sergeyboboshko.ceppb.alerts.CleanAndRefillDialodue
 import io.github.sergeyboboshko.ceppb.daemons.DocsPayment
+import io.github.sergeyboboshko.ceppb.daemons.MyGlobalVariables
 import io.github.sergeyboboshko.ceppb.details.DetailsUtilityPayment
 import io.github.sergeyboboshko.ceppb.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
 import io.github.sergeyboboshko.composeentity.daemons.FormType
 import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
+import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentExtEntity
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
 import io.github.sergeyboboshko.composeentity_ksp.base.CeDocumentDescriber
@@ -39,7 +42,6 @@ import kotlinx.coroutines.launch
 @CeDocumentDescriber(accumulationRegistersIncome = [ARegPayments::class], documentType = DocTypes.DocUtilityPayment)
 @CeCreateTable("doc_utility_payment")
 data class DocUtilityPayment(
-    
     override var id: Long,
     override var date: Long,
     override var number: Long,
@@ -55,7 +57,6 @@ data class DocUtilityPayment(
     id,date, number, isPosted , isMarkedForDeletion
 ), DocsPayment
 {
-    
     @CeField(
         label = "-",
         type = FieldTypeHelper.COMPOSABLE,
@@ -72,41 +73,19 @@ object UtilityPaymentHelper {
     fun FillDetails(vm: _BaseFormVM, formType: FormType? = null) {
         var showDialogue by remember { mutableStateOf(false) }
         val currentDoc = vm.anyItem as DocUtilityPaymentExt
-        var refresher by remember { mutableStateOf(true) }
-        LaunchedEffect(refresher) {
+        var refresher = MyGlobalVariables.paymentDocumentsHelperWiewModel.refresher.collectAsState()
+        LaunchedEffect(refresher.value) {
             AppGlobalCE.detailsUtilityPaymentViewModel.refreshAll()
             AppGlobalCE.detailsUtilityPaymentViewModel.refreshAllExt()
         }
         if (showDialogue) {
             CleanAndRefillDialodue(
                 onConfirm = {
-                    //Toast.makeText(MyApplication1.appContext,"We Filling Details",Toast.LENGTH_SHORT).show()
-                    val sqlDelete = "DELETE FROM details_utility_payment WHERE parentId = ?"
-                    val sqlInsert = """
-                        INSERT INTO details_utility_payment (
-                                parentId, utilityId, meterId, amount, describe, meterR
-                            )
-                            SELECT ?, utilityId, meterId, 0.0, describe, 0.0
-                            FROM ref_adress_details
-                         WHERE parentId = ?
-                        """.trimIndent()
-
-                    AppGlobalCE.docUtilityPaymentViewModel.viewModelScope.launch {
-                        AppGlobalCE.forSQLViewModel.execSQL(
-                                sqlDelete,
-                                arrayOf(currentDoc.link.id)
-                            )
-
-                        AppGlobalCE.forSQLViewModel.execSQL(
-                                sqlInsert,
-                                arrayOf(currentDoc.link.id, currentDoc.link.addressId)
-                            )
-                        
-                        refresher=!refresher
-                    }
-
+                    MyGlobalVariables.paymentDocumentsHelperWiewModel.fillDetails(
+                        detailsTableName = "details_utility_payment",
+                        currentDoc = currentDoc as CommonDocumentExtEntity<CommonDocumentEntity>
+                    )
                     showDialogue = false
-
                 },
                 onDismiss = {
                     Toast.makeText(MyApplication1.appContext, "DISMISS", Toast.LENGTH_SHORT).show()

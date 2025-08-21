@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +19,7 @@ import io.github.sergeyboboshko.ceppb.MyApplication1
 import io.github.sergeyboboshko.ceppb.accumulationregisters.ARegPayments
 import io.github.sergeyboboshko.ceppb.alerts.CleanAndRefillDialodue
 import io.github.sergeyboboshko.ceppb.daemons.DocsPayment
+import io.github.sergeyboboshko.ceppb.daemons.MyGlobalVariables
 import io.github.sergeyboboshko.ceppb.details.DetailsSubsidy
 import io.github.sergeyboboshko.ceppb.references.RefAddressesEntity
 import io.github.sergeyboboshko.composeentity.daemons.FieldTypeHelper
@@ -26,6 +28,7 @@ import io.github.sergeyboboshko.composeentity.daemons._BaseFormVM
 import io.github.sergeyboboshko.composeentity.daemons.mainCustomStack
 import io.github.sergeyboboshko.composeentity.details.base._DetailsViewModel
 import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentEntity
+import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentExtEntity
 import io.github.sergeyboboshko.composeentity.documents.base.DocUI
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import io.github.sergeyboboshko.composeentity_ksp.base.CeCreateTable
@@ -96,8 +99,8 @@ object UtilitySubsidyHelper {
     fun FillDetails(vm: _BaseFormVM, formType: FormType? = null) {
         var showDialogue by remember { mutableStateOf(false) }
         val currentDoc = vm.anyItem as DocSubsidyExt
-        var refresher by remember { mutableStateOf(true) }
-        LaunchedEffect(refresher) {
+        var refresher = MyGlobalVariables.paymentDocumentsHelperWiewModel.refresher.collectAsState()
+        LaunchedEffect(refresher.value) {
             AppGlobalCE.detailsSubsidyViewModel.refreshAll()
             AppGlobalCE.detailsSubsidyViewModel.refreshAllExt()
         }
@@ -105,36 +108,11 @@ object UtilitySubsidyHelper {
         if (showDialogue) {
             CleanAndRefillDialodue(
                 onConfirm = {
-                    //Toast.makeText(MyApplication1.appContext,"We Filling Details",Toast.LENGTH_SHORT).show()
-                    val sqlDelete = "DELETE FROM details_subsidy WHERE parentId = ?"
-                    val sqlInsert = """
-                        INSERT INTO details_subsidy (
-                                parentId, utilityId, meterId, amount, describe, meterR
-                            )
-                            SELECT ?, utilityId, meterId, 0.0, "auto", 0.0
-                            FROM ref_adress_details
-                         WHERE parentId = ?
-                        """.trimIndent()
 
-                    AppGlobalCE.forSQLViewModel.viewModelScope.launch {
-                        AppGlobalCE.forSQLViewModel.repository.execSQL(
-                            sqlDelete,
-                            arrayOf(currentDoc.link.id)
-                        )
-                        AppGlobalCE.forSQLViewModel.repository.execSQL(
-                            sqlInsert,
-                            arrayOf(currentDoc.link.id, currentDoc.link.addressId)
-                        )
-                        //!Impotant! repost doc   !Impotant!   !Impotant!   !Impotant!
-                        val accumUIs = (mainCustomStack.peek() as DocUI).regs
-                        val infoUIs = (mainCustomStack.peek() as DocUI).infoRegs
-                        AppGlobalCE.docSubsidyViewModel.onPost(
-                            regs = accumUIs,
-                            infoRegs = infoUIs,
-                            AppGlobalCE.detailsUtilityChargeViewModel as _DetailsViewModel)
-                        //-----------------------------------------------------------------
-                        refresher=!refresher
-                    }
+                    MyGlobalVariables.paymentDocumentsHelperWiewModel.fillDetails(
+                        detailsTableName = "details_subsidy",
+                        currentDoc = currentDoc as CommonDocumentExtEntity<CommonDocumentEntity>
+                    )
 
                     showDialogue = false
 

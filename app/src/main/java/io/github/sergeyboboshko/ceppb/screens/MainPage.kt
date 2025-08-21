@@ -35,12 +35,15 @@ import io.github.sergeyboboshko.ceppb.documents.DocSubsidyUI
 import io.github.sergeyboboshko.ceppb.documents.DocTariffRegistryUI
 import io.github.sergeyboboshko.ceppb.documents.DocUtilityChargeUI
 import io.github.sergeyboboshko.ceppb.documents.DocUtilityPaymentUI
+import io.github.sergeyboboshko.ceppb.informationregisters.TariffsUI
 import io.github.sergeyboboshko.ceppb.reports.ReportUtilityPaymentsFreeEntityUI
 import io.github.sergeyboboshko.composeentity.daemons.ButtonDisplayMode
+import io.github.sergeyboboshko.composeentity.daemons.ComposeEntity
 import io.github.sergeyboboshko.composeentity.daemons.GlobalContext
 import io.github.sergeyboboshko.composeentity.daemons.GlobalState
 import io.github.sergeyboboshko.composeentity.daemons.IconAligment
 import io.github.sergeyboboshko.composeentity.daemons.StyledButton
+import io.github.sergeyboboshko.composeentity_ksp.ComposeEntityKSP
 
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -121,6 +124,7 @@ fun MainPage(form: String) {
                     ui = ARegPaymentsUI() as BaseUI,
                     subText = ""
                 )
+
             }
         }
         item { HorizontalDivider() }
@@ -184,6 +188,13 @@ fun MainPage(form: String) {
                         //startInitializator()
                         GlobalContext.mainViewModel?.navController?.navigate("init_db")
                     })
+                ClassicButtons.IconNavigationButton(
+                    routePath = SelfNav.getMainScreen(),
+                    ui = TariffsUI() as BaseUI,
+                    commonText = stringResource(R.string.info_reg_tariffs_label),
+                    icon = ImageVector.vectorResource(R.drawable.trending_up_48px),
+                    iconSize = 48.dp
+                )
             }
         }
         item{
@@ -202,7 +213,7 @@ fun CenteredCopyrightText() {
         Text(
             text = buildAnnotatedString {
                 withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = 14.sp)) {
-                    append("© 2025 Serhij Boboshko sergey.boboshko@gmail.com, all rights recived")
+                    append("© 2025 Serhij Boboshko sergey.boboshko@gmail.com, all rights recived ${ComposeEntity.version()} (KSP: ${ComposeEntityKSP.version()})")
                 }
             }
         )

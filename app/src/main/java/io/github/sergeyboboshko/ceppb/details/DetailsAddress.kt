@@ -17,7 +17,6 @@ import io.github.sergeyboboshko.composeentity_ksp.base.CeGenerator
 @CeGenerator(type = GeneratorType.Details, label = "The Utilities of Address")
 @CeEntity(tableName = "ref_adress_details")
 @CeCreateTable("ref_adress_details")
-////@CeMigrationEntity(migrationVersion = 1)
 class DetailsAddressEntity(
     
     override var id: Long,
