@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 
 
 import io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper
+import io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentHelperClass
 import io.github.sergeyboboshko.ceppb.daemons.MyGlobalVariables
 import io.github.sergeyboboshko.ceppb.documents.DocSubsidy
 import io.github.sergeyboboshko.ceppb.documents.DocSubsidyExt
@@ -44,7 +45,7 @@ class DetailsSubsidy(
         useForOrder = true,
         onChange = "DetailsSubsidyHelper.onUtilityEdited"
     )
-    var utilityId: Long,
+    override var utilityId: Long,
     @CeField(
         related = true,
         relatedEntityClass = RefMeters::class,
@@ -55,7 +56,7 @@ class DetailsSubsidy(
         positionOnForm = 1,
         useForOrder = true
     )
-    var meterId: Long,
+    override var meterId: Long,
     @CeField(
         related = true,
         relatedEntityClass = RefMeterZones::class,
@@ -87,8 +88,8 @@ class DetailsSubsidy(
         condition = "io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper.meterReadingCondition",
         onEndEditing= "DetailsSubsidyHelper.onMeterREdited"
     )
-    var meterR: Double
-) : CommonDetailsEntity(id, parentId) {
+    override var meterR: Double
+) : CommonDetailsEntity(id, parentId),DetailsPaymentHelperClass {
     
     @CeField(
         placeHolder = "Last reading:",

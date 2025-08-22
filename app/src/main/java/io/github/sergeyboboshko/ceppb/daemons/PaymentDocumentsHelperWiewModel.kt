@@ -93,8 +93,12 @@ class PaymentDocumentsHelperWiewModel : ViewModel() {
     val _amountCount = MutableStateFlow(0f)
     val amountCount = _amountCount.asStateFlow()
 
+    val _meterReadingDifferent = MutableStateFlow(0f)
+    val meterReadingDifferent = _meterReadingDifferent.asStateFlow()
+
     fun gefAmountCount(period:Long,meterReading: Float, vm: _BaseFormVM, formType: FormType? = null) {
         val meterReadingDifferent = meterReading - lastMeterReadings.value
+        _meterReadingDifferent.value = meterReadingDifferent
         if (meterReadingDifferent > 0) {
             if (formType == null) {
                 viewModelScope.launch {

@@ -92,15 +92,15 @@ class DetailsUtilityPayment(
     )
     var describe: String,
 
-    
+
     @CeField(
         label = "@@meter_reading_label",
         placeHolder = "@@meter_reading_placeholder",
         type = FieldTypeHelper.DECIMAL,
         condition = "io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper.meterReadingCondition",
-        onEndEditing= "DetailsUtilityPaymentHelper.onMeterREdited"
+        onEndEditing = "DetailsUtilityPaymentHelper.onMeterREdited"
     )
-    var meterR: Double
+    override var meterR: Double
 ) : CommonDetailsEntity(id, parentId), DetailsPaymentHelperClass{
     
     @CeField(

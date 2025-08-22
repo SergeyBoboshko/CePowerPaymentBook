@@ -3,6 +3,7 @@ package io.github.sergeyboboshko.ceppb.daemons
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewModelScope
@@ -17,6 +18,8 @@ import io.github.sergeyboboshko.composeentity.documents.base.CommonDocumentExtEn
 import io.github.sergeyboboshko.composeentity_ksp.AppGlobalCE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
+
 //interfase for froupe of documents
 interface DocsPayment{
     var addressId:Long
@@ -27,6 +30,7 @@ interface DetailsPaymentHelperClass{
     var parentId: Long
     var meterId:Long
     var utilityId:Long
+    var meterR:Double
 }
 
 //io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper
@@ -72,6 +76,7 @@ object DetailsPaymentDocumentsHelper {
         val currElement:DetailsPaymentHelperClass? = (currElementExt?.link as? DetailsPaymentHelperClass)
         var parentId = currElement?.parentId
         val lastReading = remember { mutableStateOf<Float?>(null) }
+        val meterReadingDifferent = MyGlobalVariables.paymentDocumentsHelperWiewModel.meterReadingDifferent.collectAsState(0f)
        //if(parent == null){
            val parent = docVM.anyItem?.link as DocsPayment
        //}
@@ -131,7 +136,16 @@ object DetailsPaymentDocumentsHelper {
         }
 
         if (lastReading.value != null) {
-            Text("Last reading: ${lastReading.value}")
+            val meterR = when(formType){
+                null -> (vm.formData["meterR"] ?: "0").toString().toFloatOrNull()?:0f
+                else -> BigDecimal(currElement?.meterR?:0.0).toFloat()
+            }
+            val lastMeterR = lastReading.value?:0f
+            val diff = when(lastReading.value){
+                null -> 0f
+                else -> meterR-lastMeterR
+            }
+            Text("Last reading: ${lastReading.value} [diff: ${diff}]")
         } else {
             Text("No previous readings 2")
         }

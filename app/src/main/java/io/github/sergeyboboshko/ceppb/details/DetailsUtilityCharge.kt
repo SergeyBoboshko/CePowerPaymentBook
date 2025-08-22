@@ -3,6 +3,7 @@ package io.github.sergeyboboshko.ceppb.details
 import io.github.sergeyboboshko.composeentity_ksp.base.CeEntity
 import androidx.compose.runtime.Composable
 import io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentDocumentsHelper
+import io.github.sergeyboboshko.ceppb.daemons.DetailsPaymentHelperClass
 import io.github.sergeyboboshko.ceppb.daemons.MyGlobalVariables
 import io.github.sergeyboboshko.ceppb.documents.DocUtilityCharge
 import io.github.sergeyboboshko.ceppb.documents.DocUtilityChargeExt
@@ -49,7 +50,7 @@ class DetailsUtilityCharge(
         onChange = "DetailsUtilityChargeHelper.onUtilityEdited"
         //onChange = "DetailsUtilityChargeHelper.onUtilityEdited"
     )
-    var utilityId: Long,
+    override var utilityId: Long,
     @CeField(
         related = true,
         relatedEntityClass = RefMeters::class,
@@ -60,7 +61,7 @@ class DetailsUtilityCharge(
         positionOnForm = 1,
         useForOrder = true
     )
-    var meterId: Long,
+    override var meterId: Long,
     @CeField(
         related = true,
         relatedEntityClass = RefMeterZones::class,
@@ -84,12 +85,12 @@ class DetailsUtilityCharge(
          onEndEditing= "DetailsUtilityChargeHelper.onMeterREdited"
         //condition = "DetailsUtilityChargeHelper.meterReadingCondition"
     )
-    var meterR: Double
+    override var meterR: Double
 
     // 
     // @CeField(label = "@@meter_reading_label", placeHolder = "@@meter_reading_placeholder", type = FieldTypeHelper.DECIMAL)
     // var meterReading: Double
-) : CommonDetailsEntity(id, parentId) {
+) : CommonDetailsEntity(id, parentId), DetailsPaymentHelperClass {
 
     
     @CeField(
